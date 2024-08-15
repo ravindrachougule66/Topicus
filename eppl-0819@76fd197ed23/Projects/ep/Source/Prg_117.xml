@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Application>
+
+  <Header>
+    <Version val="14091.00"/>
+    <WithIsn val="Y"/>
+    <_InternalTask val="N"/>
+    <IsRoot val="N"/>
+    <InIndex val="N"/>
+    <UniqueISNConvState val="12"/>
+  </Header>
+
+  <ProgramsRepository>
+    <Programs>
+      <Task MainProgram="N">
+        <Header Description="FNC_CheckOmwisselOrdersBestaan" ISN_2="1" LastIsn="1" id="117">
+          <LastModified _date="738866" _time="56465" date="12/12/2023" time="15:41:05"/>
+          <Comment val="/*&#xA;Functie waarmee gecheck wordt of er orders zijn voor een bepaalde prodcutconversie&#xA;*/"/>
+          <ExecutionRight comp="-1"/>
+          <Resident val="N"/>
+          <SQL val="Y"/>
+          <ReturnValue>
+            <ReturnValueAttr MgAttr="B"/>
+            <TSK_PARAMS val="1"/>
+            <ParametersAttributes>
+              <Attr MgAttr="N"/>
+            </ParametersAttributes>
+          </ReturnValue>
+          <SqlWhereExist val="N"/>
+          <TaskType val="B"/>
+          <External val="N"/>
+          <Offline val="N"/>
+          <FormType val="N"/>
+          <DotNetObjectExists val="N"/>
+        </Header>
+        <ReturnValueExpression val="4"/>
+        <ItemIsn val="3"/>
+        <Resource>
+          <Columns>
+            <Column id="1" name="pi-_Dossiernummer">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" comp="2" id="1" obj="634"/>
+                <StoredAs id="173" val="13"/>
+                <Size id="174" val="20"/>
+                <UpdateStyle id="176" val="A"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="2" name="v_ReturnValue">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <StoredAs id="173" val="15"/>
+                <Size id="174" val="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="3" name="q_Count">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" id="1"/>
+                <Picture id="157" valUnicode="14"/>
+                <StoredAs id="173" val="6"/>
+                <Size id="174" val="8"/>
+                <Definition id="175" val="2"/>
+                <UpdateStyle id="176" val="A"/>
+                <Type id="179" val="NUMBER(14)"/>
+                <_Dec id="181"/>
+                <_Whole id="182" val="14"/>
+                <_Negative id="192"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+          </Columns>
+        </Resource>
+        <Information>
+          <Key>
+            <Mode val="N"/>
+          </Key>
+          <DB comp="-1"/>
+          <Sort>
+            <CLS val="A"/>
+          </Sort>
+          <ForceRecordDelete DEL="N"/>
+          <EndTaskCondition val="Y"/>
+          <EvaluateEndCondition val="A"/>
+          <InitialMode val="E"/>
+          <Locate Direction="A"/>
+          <Range Direction="A"/>
+          <VarRange/>
+          <TaskProperties>
+            <SelectionTable val="N"/>
+            <ConfirmUpdate CNFU="N"/>
+            <ConfirmCancel val="N"/>
+            <ErrorStrategy val="A"/>
+            <LockingStrategy val="M"/>
+            <CacheStrategy val="D"/>
+            <ForceRecordSuffix val="N"/>
+            <TransactionMode val="P"/>
+            <TransactionBegin val="N"/>
+            <PreloadView val="N"/>
+            <AllowEmptyDataview val="N"/>
+            <KeepCreatedContext val="N"/>
+          </TaskProperties>
+          <SIDE_WIN>
+            <AllowOptions val="N"/>
+            <AllowQuery val="Y"/>
+            <AllowModify val="N"/>
+            <AllowCreate val="N"/>
+            <AllowDelete val="N"/>
+            <AllowLocate val="Y"/>
+            <AllowRange val="Y"/>
+            <AllowIndexChange val="N"/>
+            <AllowSorting val="Y"/>
+            <AllowIOFiles val="Y"/>
+            <RecordCycle val="Y"/>
+            <AllowEvents val="N"/>
+            <AllowIndexOptimization val="Y"/>
+            <AllowLocationInQuery val="Y"/>
+            <AllowPrintingData val="N"/>
+          </SIDE_WIN>
+          <WIN>
+            <OpenTaskWindow val="N"/>
+            <CloseTaskWindow val="Y"/>
+            <ForegroundWindow val="Y"/>
+            <FlipFld val="N"/>
+            <RefreshTaskWindow ReturnValue="N"/>
+          </WIN>
+          <BOX>
+            <Direction val="V"/>
+          </BOX>
+        </Information>
+        <SQL_FORM DB="ORACLE-SEP" RESTAB="Memory">
+          <SQL_STMT_U val="Select count(*) from orders o where o.ord_externe_referentie = ~1 and o.ord_status = 3 and o.ord_uitvstatus&lt;=1"/>
+          <INARG>
+            <Arguments>
+              <Argument>
+                <Exp val="2"/>
+              </Argument>
+            </Arguments>
+          </INARG>
+          <OUTARG>
+            <Arguments>
+              <Argument Variable="3"/>
+            </Arguments>
+          </OUTARG>
+        </SQL_FORM>
+        <INT_CMP_LIST_INFO>
+          <v>2</v>
+        </INT_CMP_LIST_INFO>
+        <TaskLogic>
+          <LogicUnit id="2" propagate="78">
+            <Level val="R"/>
+            <Type val="M"/>
+            <FieldID val="1"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <DATAVIEW_SRC FlowIsn="2" Type="Q">
+                  <Condition val="N"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </DATAVIEW_SRC>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1" FlowIsn="3" id="1">
+                  <Column val="1"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="2" FlowIsn="4" id="2">
+                  <Column val="2"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="3" FlowIsn="5" id="3">
+                  <Column val="3"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="3" propagate="78">
+            <Level val="R"/>
+            <Type val="S"/>
+            <FieldID val="1"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <Update FlowIsn="6">
+                  <FieldID val="2"/>
+                  <WithValue val="3"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+        </TaskLogic>
+        <TaskForms>
+          <FormEntry id="2">
+            <PropertyList model="FORM_GUI0">
+              <_Comment id="218"/>
+              <FormName id="311" valUnicode="FNC_CheckOmwisselOrdersBestaan"/>
+              <_TabbingOrder id="318" val="1"/>
+              <WindowType id="358" val="1"/>
+              <PersistentFormState id="493"/>
+            </PropertyList>
+          </FormEntry>
+        </TaskForms>
+        <Expressions>
+          <Expression id="2">
+            <ExpSyntax val="{0,1}"/>
+            <ExpAttribute val="N"/>
+          </Expression>
+          <Expression id="3">
+            <ExpSyntax val="{0,3}>0"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="4">
+            <ExpSyntax val="{0,2}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+        </Expressions>
+      </Task>
+    </Programs>
+  </ProgramsRepository>
+
+</Application>

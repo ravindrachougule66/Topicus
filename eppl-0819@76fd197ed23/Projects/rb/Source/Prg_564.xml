@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Application>
+
+  <Header>
+    <Version val="14091.00"/>
+    <WithIsn val="Y"/>
+    <_InternalTask val="N"/>
+    <IsRoot val="N"/>
+    <InIndex val="N"/>
+    <UniqueISNConvState val="12"/>
+  </Header>
+
+  <ProgramsRepository>
+    <Programs>
+      <Task MainProgram="N">
+        <Header Description="RM_FUNC-Fix Postbank-P" ISN_2="1" LastIsn="1" id="564">
+          <LastModified _date="738714" _time="57198" date="13/07/2023" time="15:53:18"/>
+          <Comment val="/*Bij invoer van een externe rekening wordt die, indien het een Postbank-NLDM is, voorzien van of gestript van de P-prefix, adhv de setting in EB*/"/>
+          <ExecutionRight comp="-1"/>
+          <Resident val="Y"/>
+          <SQL val="N"/>
+          <ReturnValue>
+            <ReturnValueAttr/>
+            <TSK_PARAMS val="1"/>
+            <ParametersAttributes>
+              <Attr MgAttr="A"/>
+            </ParametersAttributes>
+          </ReturnValue>
+          <SqlWhereExist val="N"/>
+          <TaskType val="B"/>
+          <External val="N"/>
+          <Offline val="N"/>
+          <FormType val="N"/>
+          <DotNetObjectExists val="N"/>
+        </Header>
+        <ItemIsn val="2"/>
+        <Resource>
+          <Columns>
+            <Column id="3" name="pio_Externe rekening">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" comp="2" id="1" obj="726"/>
+                <StoredAs id="173"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+          </Columns>
+        </Resource>
+        <Information>
+          <Key>
+            <Mode val="N"/>
+          </Key>
+          <DB comp="-1"/>
+          <Sort>
+            <CLS val="A"/>
+          </Sort>
+          <ForceRecordDelete DEL="N"/>
+          <EndTaskCondition val="Y"/>
+          <EvaluateEndCondition val="A"/>
+          <InitialMode val="E"/>
+          <Locate Direction="A"/>
+          <Range Direction="A"/>
+          <VarRange/>
+          <TaskProperties>
+            <SelectionTable val="N"/>
+            <ConfirmUpdate CNFU="N"/>
+            <ConfirmCancel val="N"/>
+            <ErrorStrategy val="A"/>
+            <LockingStrategy val="M"/>
+            <CacheStrategy val="T"/>
+            <ForceRecordSuffix val="N"/>
+            <TransactionMode val="P"/>
+            <TransactionBegin val="N"/>
+            <PreloadView val="N"/>
+            <AllowEmptyDataview val="N"/>
+            <KeepCreatedContext val="N"/>
+          </TaskProperties>
+          <SIDE_WIN>
+            <AllowOptions val="N"/>
+            <AllowQuery val="Y"/>
+            <AllowModify val="Y"/>
+            <AllowCreate val="Y"/>
+            <AllowDelete val="Y"/>
+            <AllowLocate val="Y"/>
+            <AllowRange val="Y"/>
+            <AllowIndexChange val="Y"/>
+            <AllowSorting val="Y"/>
+            <AllowIOFiles val="Y"/>
+            <RecordCycle val="Y"/>
+            <AllowEvents val="N"/>
+            <AllowIndexOptimization val="Y"/>
+            <AllowLocationInQuery val="Y"/>
+            <AllowPrintingData val="N"/>
+          </SIDE_WIN>
+          <WIN>
+            <OpenTaskWindow val="N"/>
+            <CloseTaskWindow val="Y"/>
+            <ForegroundWindow val="Y"/>
+            <FlipFld val="N"/>
+            <RefreshTaskWindow ReturnValue="N"/>
+          </WIN>
+          <BOX>
+            <Direction val="V"/>
+          </BOX>
+        </Information>
+        <INT_CMP_LIST_INFO>
+          <v>2</v>
+        </INT_CMP_LIST_INFO>
+        <TaskLogic>
+          <LogicUnit id="2" propagate="78">
+            <Level val="R"/>
+            <Type val="M"/>
+            <FieldID val="1"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <DATAVIEW_SRC FlowIsn="2" Type="M">
+                  <Condition val="N"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </DATAVIEW_SRC>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="3">
+                  <Type val="0"/>
+                  <Text val="Iedere externe rekening (zowel IBAN als NLDM-9 als NLDM-P). kan ingevoerd worden"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="4">
+                  <Type val="0"/>
+                  <Text val="Alleen bij NLDM-P gebeurt er wat."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="5">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1" FlowIsn="6" id="1">
+                  <Column val="3"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="7">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="4" propagate="78">
+            <Level val="R"/>
+            <Type val="S"/>
+            <FieldID val="1"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <Remark FlowIsn="10">
+                  <Type val="2"/>
+                  <Text val="Lengte 9 of groter is NLDM-9 of IBAN; niets doen"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="11">
+                  <Type val="2"/>
+                  <Text val="Lengte 8 of kleiner is (P+)1..7 is NLDM-Postbank."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="12">
+                  <Type val="2"/>
+                  <Text val="Lege string: niets doen, mag in geen geval een 'P' teruggeven..."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="16" EndBlockSegment="16" FlowIsn="13" Type="I">
+                  <Condition Exp="4"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="14">
+                  <FieldID val="1"/>
+                  <WithValue val="5"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition Exp="7"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="15">
+                  <FieldID val="1"/>
+                  <WithValue val="6"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition Exp="8"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="16"/>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+        </TaskLogic>
+        <TaskForms>
+          <FormEntry id="2">
+            <PropertyList model="FORM_GUI0">
+              <_Comment id="218"/>
+              <FormName id="311" valUnicode="RM_FUNC-Fix Postbank-P"/>
+              <_TabbingOrder id="318" val="1"/>
+              <WindowType id="358" val="1"/>
+              <PersistentFormState id="493"/>
+            </PropertyList>
+          </FormEntry>
+        </TaskForms>
+        <Expressions>
+          <Expression id="4">
+            <ExpSyntax val="Len (Trim ({0,1}))&lt;=8 AND Trim ({0,1})&lt;>''"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="5">
+            <ExpSyntax val="'P'&amp;Trim ({0,1})"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="6">
+            <ExpSyntax val="MID (Trim ({0,1}),2,Len (Trim ({0,1}))-1)"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="7">
+            <ExpSyntax val="{32768,2080375995}=1 AND MID (Trim ({0,1}),1,1)&lt;>'P'"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="8">
+            <ExpSyntax val="{32768,2080375995}=0 AND MID (Trim ({0,1}),1,1)='P'"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+        </Expressions>
+      </Task>
+    </Programs>
+  </ProgramsRepository>
+
+</Application>

@@ -1,0 +1,2340 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Application>
+
+  <Header>
+    <Version val="14100.00"/>
+    <WithIsn val="Y"/>
+    <_InternalTask val="N"/>
+    <IsRoot val="N"/>
+    <InIndex val="N"/>
+    <UniqueISNConvState val="12"/>
+  </Header>
+
+  <ProgramsRepository>
+    <Programs>
+      <Task MainProgram="N">
+        <Header Description="CalculateTransaction" ISN_2="1" LastIsn="4" id="872">
+          <LastModified _date="738930" _time="37427" date="14/02/2024" time="10:23:47"/>
+          <Comment val="/*New function to opdate and (re)calculate the transaction.*/"/>
+          <ExecutionRight comp="-1"/>
+          <Resident val="Y"/>
+          <SQL val="N"/>
+          <ReturnValue>
+            <ReturnValueAttr/>
+            <TSK_PARAMS val="2"/>
+            <ParametersAttributes>
+              <Attr MgAttr="N"/>
+              <Attr MgAttr="B"/>
+            </ParametersAttributes>
+          </ReturnValue>
+          <SqlWhereExist val="N"/>
+          <TaskType val="B"/>
+          <External val="N"/>
+          <Offline val="N"/>
+          <FormType val="N"/>
+          <DotNetObjectExists val="N"/>
+        </Header>
+        <ItemIsn val="21"/>
+        <Resource>
+          <DB id="1">
+            <DataObject comp="-1" obj="54"/>
+            <Access val="W"/>
+            <Share val="W"/>
+            <Open val="N"/>
+            <Cache val="N"/>
+            <IdentifyRowModifications val="84"/>
+          </DB>
+          <Columns>
+            <Column id="1" name="pi-_TransactionId">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" comp="2" id="1" obj="899"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="14" name="pi-_DoShowCalculations">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="4" name="v_ConceptTransaction">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_BLOB" comp="-1" id="1" obj="11"/>
+                <Size id="174" val="28"/>
+                <Definition id="175" val="1"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="18" name="v_CT_naProcessing">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_BLOB" comp="-1" id="1" obj="11"/>
+                <Size id="174" val="28"/>
+                <Definition id="175" val="1"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="2" name="v_TransactionContextOld">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" comp="2" id="1" obj="2554"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <StoredAs id="173" val="1"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="7" name="v_TransactionContextNew">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" comp="2" id="1" obj="2554"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <StoredAs id="173" val="1"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="6" name="v_TransactionRel1PprId">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" comp="2" id="1" obj="885"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="5" name="v_TransactionIndication">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" comp="2" id="1" obj="13"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <StoredAs id="173" val="1"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="8" name="v_TransactionDate">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_DATE" comp="2" id="1" obj="37"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="9" name="v_SecurityId">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" comp="2" id="1" obj="2543"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="13" name="v_ContextOk?">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="15" name="v_IsConfirmed">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="16" name="v_TransactionProcessed?">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="10" name="v_ConfirmProcessing">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+          </Columns>
+        </Resource>
+        <Information>
+          <Key>
+            <Mode val="N"/>
+          </Key>
+          <DB comp="-1"/>
+          <Sort>
+            <CLS val="A"/>
+          </Sort>
+          <ForceRecordDelete DEL="N"/>
+          <EndTaskCondition Exp="20"/>
+          <EvaluateEndCondition val="A"/>
+          <InitialMode val="M"/>
+          <Locate Direction="A"/>
+          <Range Direction="A"/>
+          <VarRange/>
+          <TaskProperties>
+            <SelectionTable val="N"/>
+            <ConfirmUpdate CNFU="N"/>
+            <ConfirmCancel val="N"/>
+            <ErrorStrategy val="A"/>
+            <LockingStrategy val="I"/>
+            <CacheStrategy val="T"/>
+            <ForceRecordSuffix val="N"/>
+            <TransactionMode val="P"/>
+            <TransactionBegin val="L"/>
+            <PreloadView val="N"/>
+            <AllowEmptyDataview val="N"/>
+            <KeepCreatedContext val="N"/>
+          </TaskProperties>
+          <SIDE_WIN>
+            <AllowOptions val="N"/>
+            <AllowQuery val="Y"/>
+            <AllowModify val="Y"/>
+            <AllowCreate val="Y"/>
+            <AllowDelete val="Y"/>
+            <AllowLocate val="Y"/>
+            <AllowRange val="Y"/>
+            <AllowIndexChange val="Y"/>
+            <AllowSorting val="Y"/>
+            <AllowIOFiles val="Y"/>
+            <RecordCycle val="Y"/>
+            <AllowEvents val="N"/>
+            <AllowIndexOptimization val="Y"/>
+            <AllowLocationInQuery val="Y"/>
+            <AllowPrintingData val="N"/>
+          </SIDE_WIN>
+          <WIN>
+            <OpenTaskWindow val="N"/>
+            <CloseTaskWindow val="Y"/>
+            <ForegroundWindow val="Y"/>
+            <FlipFld val="N"/>
+            <RefreshTaskWindow ReturnValue="N"/>
+          </WIN>
+          <BOX>
+            <Direction val="V"/>
+          </BOX>
+        </Information>
+        <INT_CMP_LIST_INFO>
+          <v>2</v>
+          <v>16</v>
+          <v>6</v>
+        </INT_CMP_LIST_INFO>
+        <TaskLogic>
+          <LogicUnit id="1" propagate="78">
+            <Level val="R"/>
+            <Type val="M"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <DATAVIEW_SRC FlowIsn="1" Type="M">
+                  <Condition val="N"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </DATAVIEW_SRC>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1" FlowIsn="3" id="1">
+                  <Column val="1"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <INT_RCMP_INFO>
+                    <v>240</v>
+                  </INT_RCMP_INFO>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="14" FlowIsn="149" id="14">
+                  <Column val="14"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="6">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="4" FlowIsn="7" id="4">
+                  <ASS val="2"/>
+                  <Column val="4"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="21" FlowIsn="387" id="21">
+                  <ASS val="2"/>
+                  <Column val="18"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="2" FlowIsn="4" id="2">
+                  <ASS val="2"/>
+                  <Column val="2"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="7" FlowIsn="20" id="7">
+                  <ASS val="2"/>
+                  <Column val="7"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="6" FlowIsn="11" id="6">
+                  <ASS val="2"/>
+                  <Column val="6"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="5" FlowIsn="8" id="5">
+                  <ASS val="2"/>
+                  <Column val="5"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="8" FlowIsn="37" id="8">
+                  <ASS val="2"/>
+                  <Column val="8"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="9" FlowIsn="38" id="9">
+                  <ASS val="2"/>
+                  <Column val="9"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="92">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="13" FlowIsn="93" id="13">
+                  <ASS val="19"/>
+                  <Column val="13"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="15" FlowIsn="210" id="15">
+                  <ASS val="19"/>
+                  <Column val="15"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="243">
+                  <Type val="0"/>
+                  <Text val="Transactie Query om een lock te forceren"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <LNK Direction="A" EVL_CND="R" FlowIsn="240" Mode="R" SortType="241" VIEW="13" VIEWS="1">
+                  <DB comp="-1" obj="54"/>
+                  <Condition val="Y"/>
+                </LNK>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="16" FlowIsn="242" id="16">
+                  <Column val="108"/>
+                  <Type val="R"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <Locate MAX="3" MIN="3"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="N"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <END_LINK FlowIsn="241"/>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="3" propagate="78">
+            <Level val="R"/>
+            <Type val="S"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <Evaluate FlowIsn="16">
+                  <Expression val="4"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Evaluate>
+              </LogicLine>
+              <LogicLine>
+                <CallTask FlowIsn="9">
+                  <OperationType val="P"/>
+                  <Event>
+                    <EventType val="N"/>
+                  </Event>
+                  <TaskID comp="-1" obj="724"/>
+                  <Lock val="N"/>
+                  <Arguments>
+                    <Argument>
+                      <Expression val="3"/>
+                      <Skip val="N"/>
+                    </Argument>
+                  </Arguments>
+                  <Wait val="Y"/>
+                  <SyncData val="N"/>
+                  <ReturnValue val="4"/>
+                  <RetainFocus val="N"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </CallTask>
+              </LogicLine>
+              <LogicLine>
+                <CallTask FlowIsn="18">
+                  <OperationType val="T"/>
+                  <Event>
+                    <EventType val="N"/>
+                  </Event>
+                  <TaskID comp="-1" obj="2"/>
+                  <Lock val="N"/>
+                  <Wait val="Y"/>
+                  <SyncData val="N"/>
+                  <RetainFocus val="N"/>
+                  <Condition Exp="7"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </CallTask>
+              </LogicLine>
+              <LogicLine>
+                <Evaluate FlowIsn="17">
+                  <Expression val="5"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Evaluate>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="10">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="21">
+                  <FieldID val="7"/>
+                  <WithValue val="8"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition Exp="9"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <CallTask FlowIsn="5">
+                  <OperationType val="P"/>
+                  <Event>
+                    <EventType val="N"/>
+                  </Event>
+                  <TaskID comp="-1" obj="82"/>
+                  <Lock val="N"/>
+                  <Arguments>
+                    <Argument>
+                      <Variable val="7"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Expression val="6"/>
+                      <Skip val="N"/>
+                    </Argument>
+                  </Arguments>
+                  <Wait val="Y"/>
+                  <SyncData val="N"/>
+                  <RetainFocus val="N"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </CallTask>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="317">
+                  <Type val="2"/>
+                  <Text val="Selecteren van Context wordt in 'SelectTransactionContext' afgedwongen."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <RaiseEvent FlowIsn="76">
+                  <Event>
+                    <EventType val="U"/>
+                    <PublicObject comp="-1" obj="1"/>
+                  </Event>
+                  <Wait val="89"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </RaiseEvent>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="52">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="4" propagate="78">
+            <Level val="H"/>
+            <Type val="U"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="U"/>
+              <PublicObject comp="-1" obj="1"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <Select FieldID="18" FlowIsn="277" id="18">
+                  <Column val="16"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <CallTask FlowIsn="276">
+                  <OperationType val="P"/>
+                  <Event>
+                    <EventType val="N"/>
+                  </Event>
+                  <TaskID comp="-1" obj="58"/>
+                  <Lock val="N"/>
+                  <Arguments>
+                    <Argument>
+                      <Expression val="3"/>
+                      <Skip val="N"/>
+                    </Argument>
+                  </Arguments>
+                  <Wait val="Y"/>
+                  <SyncData val="N"/>
+                  <ReturnValue val="18"/>
+                  <RetainFocus val="N"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </CallTask>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="298">
+                  <Type val="2"/>
+                  <Text val="Alleen opslaan als de transactie nog niet is doorgeboekt. Melding zit in de check."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="282" EndBlockSegment="282" FlowIsn="279" Type="I">
+                  <Condition Exp="28"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="10" FlowIsn="63" id="10">
+                  <Column val="10"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <RaiseEvent FlowIsn="64">
+                  <Event>
+                    <EventType val="U"/>
+                    <PublicObject comp="6" obj="24"/>
+                  </Event>
+                  <Wait val="89"/>
+                  <Arguments>
+                    <Argument>
+                      <Expression val="17"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Skip val="Y"/>
+                    </Argument>
+                    <Argument>
+                      <Skip val="Y"/>
+                    </Argument>
+                    <Argument>
+                      <Variable val="10"/>
+                      <Skip val="N"/>
+                    </Argument>
+                  </Arguments>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </RaiseEvent>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="66" EndBlockSegment="66" FlowIsn="65" Type="I">
+                  <Condition Exp="18"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Evaluate FlowIsn="34">
+                  <Expression val="4"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Evaluate>
+              </LogicLine>
+              <LogicLine>
+                <CallTask FlowIsn="19">
+                  <OperationType val="T"/>
+                  <Event>
+                    <EventType val="N"/>
+                  </Event>
+                  <TaskID comp="-1" obj="3"/>
+                  <Lock val="N"/>
+                  <Wait val="Y"/>
+                  <SyncData val="N"/>
+                  <RetainFocus val="N"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </CallTask>
+              </LogicLine>
+              <LogicLine>
+                <RaiseEvent FlowIsn="632291761">
+                  <Event>
+                    <EventType val="U"/>
+                    <PublicObject comp="16" obj="632291535"/>
+                  </Event>
+                  <Wait val="89"/>
+                  <Arguments>
+                    <Argument>
+                      <Expression val="3"/>
+                      <Skip val="N"/>
+                    </Argument>
+                  </Arguments>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </RaiseEvent>
+              </LogicLine>
+              <LogicLine>
+                <CallTask FlowIsn="36">
+                  <OperationType val="P"/>
+                  <Event>
+                    <EventType val="N"/>
+                  </Event>
+                  <TaskID comp="-1" obj="742"/>
+                  <Lock val="N"/>
+                  <Arguments>
+                    <Argument>
+                      <Variable val="4"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Expression val="11"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Skip val="Y"/>
+                    </Argument>
+                    <Argument>
+                      <Expression val="12"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Expression val="12"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Expression val="12"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Expression val="12"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Expression val="22"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Expression val="21"/>
+                      <Skip val="N"/>
+                    </Argument>
+                  </Arguments>
+                  <Wait val="Y"/>
+                  <SyncData val="N"/>
+                  <RetainFocus val="N"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </CallTask>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="186" EndBlockSegment="186" FlowIsn="185" Type="I">
+                  <Condition Exp="23"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Evaluate FlowIsn="193">
+                  <Expression val="5"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Evaluate>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="375">
+                  <FieldID val="21"/>
+                  <WithValue val="30"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <CallTask FlowIsn="209">
+                  <OperationType val="T"/>
+                  <Event>
+                    <EventType val="N"/>
+                  </Event>
+                  <TaskID comp="-1" obj="4"/>
+                  <Lock val="N"/>
+                  <Wait val="Y"/>
+                  <SyncData val="N"/>
+                  <RetainFocus val="N"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </CallTask>
+              </LogicLine>
+              <LogicLine>
+                <CallTask FlowIsn="187">
+                  <OperationType val="P"/>
+                  <Event>
+                    <EventType val="N"/>
+                  </Event>
+                  <TaskID comp="-1" obj="725"/>
+                  <Lock val="N"/>
+                  <Arguments>
+                    <Argument>
+                      <Expression val="31"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Expression val="24"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Expression val="3"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Skip val="Y"/>
+                    </Argument>
+                  </Arguments>
+                  <Wait val="Y"/>
+                  <SyncData val="N"/>
+                  <RetainFocus val="N"/>
+                  <Condition Exp="29"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </CallTask>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="186"/>
+              </LogicLine>
+              <LogicLine>
+                <Evaluate FlowIsn="35">
+                  <Expression val="5"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Evaluate>
+              </LogicLine>
+              <LogicLine>
+                <RaiseEvent FlowIsn="53">
+                  <Event>
+                    <EventType val="U"/>
+                    <PublicObject comp="6" obj="23"/>
+                  </Event>
+                  <Wait val="89"/>
+                  <Arguments>
+                    <Argument>
+                      <Expression val="15"/>
+                      <Skip val="N"/>
+                    </Argument>
+                    <Argument>
+                      <Skip val="Y"/>
+                    </Argument>
+                  </Arguments>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </RaiseEvent>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="91">
+                  <FieldID val="13"/>
+                  <WithValue val="12"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="66"/>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="282"/>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="5" propagate="78">
+            <Level val="H"/>
+            <Type val="U"/>
+            <Scope val="T"/>
+            <EngineDirective val="A"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="R"/>
+              <ErrorTrigger val="1"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <RaiseEvent FlowIsn="316">
+                  <Event>
+                    <EventType val="I"/>
+                    <InternalEventID val="393"/>
+                  </Event>
+                  <Wait val="78"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </RaiseEvent>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+        </TaskLogic>
+        <TaskForms>
+          <FormEntry id="1">
+            <PropertyList model="FORM_GUI0">
+              <_Comment id="218"/>
+              <FormName id="311" valUnicode="CalculateTransaction"/>
+            </PropertyList>
+          </FormEntry>
+        </TaskForms>
+        <Expressions>
+          <Expression id="2">
+            <ExpSyntax val="NULL()"/>
+            <ExpAttribute val="*"/>
+          </Expression>
+          <Expression id="4">
+            <ExpSyntax val="SetCrsr(2)"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="3">
+            <ExpSyntax val="{0,1}"/>
+            <ExpAttribute val="N"/>
+          </Expression>
+          <Expression id="30">
+            <ExpSyntax val="{0,4}"/>
+            <ExpAttribute val="O"/>
+          </Expression>
+          <Expression id="7">
+            <ExpSyntax val="NOT ISNULL({0,4})"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="5">
+            <ExpSyntax val="SetCrsr(1)"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="8">
+            <ExpSyntax val="{0,2}"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="9">
+            <ExpSyntax val="NOT ISNULL({0,2}) AND {0,2} &lt;> ''"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="6">
+            <ExpSyntax val="{0,5}"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="11">
+            <ExpSyntax val="getCalculationLines({0,8},0,{0,9},{0,6},{0,5},{0,7})"/>
+            <ExpAttribute val="O"/>
+          </Expression>
+          <Expression id="12">
+            <ExpSyntax val="'TRUE'LOG"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="22">
+            <ExpSyntax val="IF({0,14},'NONE','UPDATE')"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="15">
+            <ExpSyntax val="IF(({0,14} AND ({0,15} OR (isNullOrDefault('{0,2}'VAR)))) OR NOT {0,14}, StrBuild(MlsTrans('De transactie is herberekend met context @1@.'),Trim({0,7})), MlsTrans('De context van de transactie is niet opgeslagen !'))"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="17">
+            <ExpSyntax val="StrBuild(MlsTrans('U gaat nu de transactie herberekenen met context @1@.@2@Wilt u doorgaan?'),Trim({0,7}),ASCIIChr(10)&amp;ASCIIChr(13))"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="18">
+            <ExpSyntax val="{0,10}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="19">
+            <ExpSyntax val="'FALSE'LOG"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="20">
+            <ExpSyntax val="{0,13}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="21">
+            <ExpSyntax val="{0,14}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="23">
+            <ExpSyntax val="{0,14}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="24">
+            <ExpSyntax val="'UPDATE'"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="29">
+            <ExpSyntax val="{0,15} OR (isNullOrDefault('{0,2}'VAR))"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="28">
+            <ExpSyntax val="NOT {0,18}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="31">
+            <ExpSyntax val="IF({0,15},{0,4},{0,21})"/>
+            <ExpAttribute val="O"/>
+          </Expression>
+        </Expressions>
+        <EVNT DESC="ProcessTransaction" FORCE_EXIT="N" id="1">
+          <Event>
+            <EventType val="N"/>
+          </Event>
+        </EVNT>
+        <Task MainProgram="N">
+          <Header Description="readConceptTransactionResponse" ISN_2="2" LastIsn="4" id="872">
+            <LastModified _date="736955" _time="36031" date="18/09/2018" time="10:00:31"/>
+            <ExecutionRight comp="-1"/>
+            <Resident val="Y"/>
+            <SQL val="N"/>
+            <ReturnValue>
+              <ReturnValueAttr/>
+              <ParametersAttributes/>
+            </ReturnValue>
+            <SqlWhereExist val="N"/>
+            <TaskType val="B"/>
+            <External val="N"/>
+            <FormType val="N"/>
+            <DotNetObjectExists val="N"/>
+          </Header>
+          <ItemIsn val="26"/>
+          <Resource>
+            <DB id="4">
+              <DataObject comp="10" obj="7"/>
+              <Access val="R"/>
+              <Share val="W"/>
+              <Open val="N"/>
+              <Cache val="N"/>
+              <IdentifyRowModifications val="84"/>
+            </DB>
+            <DB FieldID="4" Parent="1" id="1">
+              <DataObject comp="14" obj="111"/>
+              <Access val="R"/>
+              <Share val="R"/>
+              <Open val="N"/>
+              <Cache val="N"/>
+              <IdentifyRowModifications val="84"/>
+            </DB>
+            <DB FieldID="4" Parent="1" id="2">
+              <DataObject comp="14" obj="112"/>
+              <Access val="R"/>
+              <Share val="R"/>
+              <Open val="N"/>
+              <Cache val="N"/>
+              <IdentifyRowModifications val="84"/>
+            </DB>
+            <DB FieldID="4" Parent="1" id="3">
+              <DataObject comp="14" obj="115"/>
+              <Access val="R"/>
+              <Share val="R"/>
+              <Open val="N"/>
+              <Cache val="N"/>
+              <IdentifyRowModifications val="84"/>
+            </DB>
+            <Columns/>
+          </Resource>
+          <Information>
+            <Key>
+              <Mode val="N"/>
+            </Key>
+            <DB comp="-1"/>
+            <Sort>
+              <CLS val="A"/>
+            </Sort>
+            <ForceRecordDelete DEL="N"/>
+            <EndTaskCondition val="Y"/>
+            <EvaluateEndCondition val="A"/>
+            <InitialMode val="E"/>
+            <Locate Direction="A"/>
+            <Range Direction="A"/>
+            <VarRange/>
+            <TaskProperties>
+              <SelectionTable val="N"/>
+              <ConfirmUpdate CNFU="N"/>
+              <ConfirmCancel val="N"/>
+              <ErrorStrategy val="A"/>
+              <LockingStrategy val="M"/>
+              <CacheStrategy val="N"/>
+              <ForceRecordSuffix val="N"/>
+              <TransactionMode val="P"/>
+              <TransactionBegin val="N"/>
+              <PreloadView val="N"/>
+              <AllowEmptyDataview val="N"/>
+              <KeepCreatedContext val="N"/>
+            </TaskProperties>
+            <SIDE_WIN>
+              <AllowOptions val="N"/>
+              <AllowQuery val="Y"/>
+              <AllowModify val="Y"/>
+              <AllowCreate val="Y"/>
+              <AllowDelete val="Y"/>
+              <AllowLocate val="Y"/>
+              <AllowRange val="Y"/>
+              <AllowIndexChange val="Y"/>
+              <AllowSorting val="Y"/>
+              <AllowIOFiles val="Y"/>
+              <RecordCycle val="Y"/>
+              <AllowEvents val="N"/>
+              <AllowIndexOptimization val="Y"/>
+              <AllowLocationInQuery val="Y"/>
+              <AllowPrintingData val="N"/>
+            </SIDE_WIN>
+            <WIN>
+              <OpenTaskWindow val="N"/>
+              <CloseTaskWindow val="Y"/>
+              <ForegroundWindow val="Y"/>
+              <FlipFld val="N"/>
+              <RefreshTaskWindow ReturnValue="N"/>
+            </WIN>
+            <BOX>
+              <Direction val="V"/>
+            </BOX>
+          </Information>
+          <INT_CMP_LIST_INFO>
+            <v>18</v>
+            <v>14</v>
+            <v>10</v>
+          </INT_CMP_LIST_INFO>
+          <TaskLogic>
+            <LogicUnit id="1" propagate="78">
+              <Level val="R"/>
+              <Type val="M"/>
+              <Scope val="S"/>
+              <EngineDirective val="S"/>
+              <ShowMessage val="Y"/>
+              <Condition val="89"/>
+              <Event>
+                <EventType val="S"/>
+              </Event>
+              <LogicLines>
+                <LogicLine>
+                  <DATAVIEW_SRC FlowIsn="1" Type="M">
+                    <Condition val="N"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </DATAVIEW_SRC>
+                </LogicLine>
+                <LogicLine>
+                  <LNK Direction="A" EVL_CND="R" FlowIsn="2" Mode="R" SortType="3" VIEW="1" VIEWS="1">
+                    <DB comp="14" obj="111"/>
+                    <Condition val="Y"/>
+                  </LNK>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="1" FlowIsn="4" id="1">
+                    <Column val="8"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <END_LINK FlowIsn="3"/>
+                </LogicLine>
+                <LogicLine>
+                  <LNK Direction="A" EVL_CND="R" FlowIsn="6" Mode="R" SortType="7" VIEW="2" VIEWS="13">
+                    <DB comp="14" obj="112"/>
+                    <Condition val="Y"/>
+                  </LNK>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="8" FlowIsn="18" id="8">
+                    <Column val="7"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="9" FlowIsn="19" id="9">
+                    <Column val="8"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="10" FlowIsn="20" id="10">
+                    <Column val="9"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="11" FlowIsn="21" id="11">
+                    <Column val="13"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="12" FlowIsn="22" id="12">
+                    <Column val="14"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="13" FlowIsn="23" id="13">
+                    <Column val="15"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="16" FlowIsn="41" id="16">
+                    <Column val="34"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <INT_RCMP_INFO>
+                      <v>47</v>
+                    </INT_RCMP_INFO>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="17" FlowIsn="42" id="17">
+                    <Column val="35"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <INT_RCMP_INFO>
+                      <v>47</v>
+                    </INT_RCMP_INFO>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="18" FlowIsn="43" id="18">
+                    <Column val="36"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <INT_RCMP_INFO>
+                      <v>47</v>
+                    </INT_RCMP_INFO>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="19" FlowIsn="44" id="19">
+                    <Column val="37"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <INT_RCMP_INFO>
+                      <v>47</v>
+                    </INT_RCMP_INFO>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="20" FlowIsn="45" id="20">
+                    <Column val="68"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <INT_RCMP_INFO>
+                      <v>47</v>
+                    </INT_RCMP_INFO>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="3" FlowIsn="8" id="3">
+                    <Column val="42"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <INT_RCMP_INFO>
+                      <v>47</v>
+                    </INT_RCMP_INFO>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="14" FlowIsn="38" id="14">
+                    <Column val="47"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <END_LINK FlowIsn="7"/>
+                </LogicLine>
+                <LogicLine>
+                  <LNK Direction="A" EVL_CND="R" FlowIsn="9" Mode="R" SortType="10" VIEW="15" VIEWS="2">
+                    <DB comp="14" obj="115"/>
+                    <Condition val="Y"/>
+                  </LNK>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="4" FlowIsn="11" id="4">
+                    <Column val="8"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <REAL_VNAME_TXT val="ta02class_REL1CASH"/>
+                    <Locate MAX="1" MIN="1"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="5" FlowIsn="12" id="5">
+                    <Column val="6"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <REAL_VNAME_TXT val="ta05pprId_REL1CASH"/>
+                    <INT_RCMP_INFO>
+                      <v>14</v>
+                    </INT_RCMP_INFO>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <END_LINK FlowIsn="10"/>
+                </LogicLine>
+                <LogicLine>
+                  <LNK Direction="A" EVL_CND="R" FlowIsn="14" Mode="R" SortType="17" VIEW="17" VIEWS="2">
+                    <DB comp="14" obj="115"/>
+                    <Condition Exp="2"/>
+                  </LNK>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="6" FlowIsn="15" id="6">
+                    <Column val="8"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <REAL_VNAME_TXT val="ta02class_REL1DEPOT"/>
+                    <Locate MAX="3" MIN="3"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="7" FlowIsn="16" id="7">
+                    <Column val="6"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <REAL_VNAME_TXT val="ta05pprId_REL1DEPOT"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <END_LINK FlowIsn="17"/>
+                </LogicLine>
+                <LogicLine>
+                  <Remark FlowIsn="46">
+                    <Type val="0"/>
+                    <Text val=" "/>
+                  </Remark>
+                </LogicLine>
+                <LogicLine>
+                  <LNK Direction="A" EVL_CND="R" FlowIsn="47" Mode="R" SortType="48" VIEW="19" VIEWS="5">
+                    <DB comp="10" obj="7"/>
+                    <Condition val="Y"/>
+                  </LNK>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="22" FlowIsn="49" id="22">
+                    <Column val="1"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <Locate MAX="17" MIN="17"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="23" FlowIsn="50" id="23">
+                    <Column val="2"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <Locate MAX="18" MIN="18"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="24" FlowIsn="51" id="24">
+                    <Column val="3"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <Locate MAX="19" MIN="19"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="25" FlowIsn="52" id="25">
+                    <Column val="4"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <Locate MAX="20" MIN="20"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="26" FlowIsn="53" id="26">
+                    <Column val="108"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <END_LINK FlowIsn="48"/>
+                </LogicLine>
+              </LogicLines>
+            </LogicUnit>
+            <LogicUnit id="2" propagate="78">
+              <Level val="R"/>
+              <Type val="S"/>
+              <Scope val="S"/>
+              <EngineDirective val="S"/>
+              <ShowMessage val="Y"/>
+              <Condition val="89"/>
+              <Event>
+                <EventType val="S"/>
+              </Event>
+              <LogicLines>
+                <LogicLine>
+                  <Update FlowIsn="24">
+                    <Parent val="1"/>
+                    <FieldID val="2"/>
+                    <WithValue val="5"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition Exp="4"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="25">
+                    <Parent val="1"/>
+                    <FieldID val="6"/>
+                    <WithValue val="8"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <RaiseEvent FlowIsn="27">
+                    <Event>
+                      <EventType val="U"/>
+                      <PublicObject comp="18" obj="63"/>
+                    </Event>
+                    <Wait val="89"/>
+                    <Arguments>
+                      <Argument>
+                        <Expression val="11"/>
+                        <Skip val="N"/>
+                      </Argument>
+                      <Argument>
+                        <Expression val="12"/>
+                        <Skip val="N"/>
+                      </Argument>
+                      <Argument>
+                        <Expression val="13"/>
+                        <Skip val="N"/>
+                      </Argument>
+                      <Argument>
+                        <Expression val="14"/>
+                        <Skip val="N"/>
+                      </Argument>
+                      <Argument>
+                        <Parent val="1"/>
+                        <Variable val="6"/>
+                        <Skip val="N"/>
+                      </Argument>
+                      <Argument>
+                        <Skip val="Y"/>
+                      </Argument>
+                      <Argument>
+                        <Skip val="Y"/>
+                      </Argument>
+                    </Arguments>
+                    <Condition Exp="9"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </RaiseEvent>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="26">
+                    <Parent val="1"/>
+                    <FieldID val="5"/>
+                    <WithValue val="10"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="39">
+                    <Parent val="1"/>
+                    <FieldID val="8"/>
+                    <WithValue val="15"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="70">
+                    <Parent val="1"/>
+                    <FieldID val="9"/>
+                    <WithValue val="16"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+              </LogicLines>
+            </LogicUnit>
+          </TaskLogic>
+          <TaskForms>
+            <FormEntry id="1">
+              <PropertyList model="FORM_GUI0">
+                <_Comment id="218"/>
+                <FormName id="311" valUnicode="readConceptTransactionResponse"/>
+              </PropertyList>
+            </FormEntry>
+          </TaskForms>
+          <Expressions>
+            <Expression id="1">
+              <ExpSyntax val="'REL1CASH'"/>
+              <ExpAttribute val="A"/>
+            </Expression>
+            <Expression id="2">
+              <ExpSyntax val="ISNULL({0,5}) OR {0,5} = 0"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="3">
+              <ExpSyntax val="'REL1DEPOT'"/>
+              <ExpAttribute val="A"/>
+            </Expression>
+            <Expression id="17">
+              <ExpSyntax val="IF(IN({0,3},'UITK','EX C','AS C','EX P','AS P'),{0,20},{0,16})"/>
+              <ExpAttribute val="A"/>
+            </Expression>
+            <Expression id="18">
+              <ExpSyntax val="IF(IN({0,3},'UITK','EX C','AS C','EX P','AS P'),'',{0,17})"/>
+              <ExpAttribute val="A"/>
+            </Expression>
+            <Expression id="19">
+              <ExpSyntax val="IF(IN({0,3},'UITK','EX C','AS C','EX P','AS P'),'00/00/0000'DATE,{0,18})"/>
+              <ExpAttribute val="D"/>
+            </Expression>
+            <Expression id="20">
+              <ExpSyntax val="IF(IN({0,3},'UITK','EX C','AS C','EX P','AS P'),0,{0,19})"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+            <Expression id="5">
+              <ExpSyntax val="{0,1}"/>
+              <ExpAttribute val="A"/>
+            </Expression>
+            <Expression id="4">
+              <ExpSyntax val="NOT (ISNULL({0,1}) OR {0,1} = '')"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="8">
+              <ExpSyntax val="IF (NOT (ISNULL({0,5}) OR {0,5} = 0),{0,5},{0,7})"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+            <Expression id="11">
+              <ExpSyntax val="{0,8}"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+            <Expression id="12">
+              <ExpSyntax val="IF(ISNULL({0,9}) OR {0,9} = '',{0,11},{0,9})"/>
+              <ExpAttribute val="A"/>
+            </Expression>
+            <Expression id="13">
+              <ExpSyntax val="IF(ISNULL({0,9}) OR {0,9} = '',{0,12},{0,10})"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+            <Expression id="14">
+              <ExpSyntax val="IF(ISNULL({0,9}) OR {0,9} = '',{0,13},NULL())"/>
+              <ExpAttribute val="A"/>
+            </Expression>
+            <Expression id="9">
+              <ExpSyntax val="ISNULL({1,6}) OR {1,6} = 0"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="10">
+              <ExpSyntax val="{0,3}"/>
+              <ExpAttribute val="A"/>
+            </Expression>
+            <Expression id="15">
+              <ExpSyntax val="{0,14}"/>
+              <ExpAttribute val="D"/>
+            </Expression>
+            <Expression id="16">
+              <ExpSyntax val="{0,26}"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+          </Expressions>
+        </Task>
+        <Task MainProgram="N">
+          <Header Description="UpdConceptTransactionContext" ISN_2="3" LastIsn="4" id="872">
+            <LastModified _date="738929" _time="51277" date="13/02/2024" time="14:14:37"/>
+            <ExecutionRight comp="-1"/>
+            <Resident val="Y"/>
+            <SQL val="N"/>
+            <ReturnValue>
+              <ReturnValueAttr/>
+              <ParametersAttributes/>
+            </ReturnValue>
+            <SqlWhereExist val="N"/>
+            <TaskType val="B"/>
+            <External val="N"/>
+            <FormType val="N"/>
+            <DotNetObjectExists val="N"/>
+          </Header>
+          <ItemIsn val="4"/>
+          <Resource>
+            <DB FieldID="4" Parent="1" id="1">
+              <DataObject comp="14" obj="111"/>
+              <Access val="W"/>
+              <Share val="R"/>
+              <Open val="N"/>
+              <Cache val="N"/>
+              <IdentifyRowModifications val="84"/>
+            </DB>
+            <DB FieldID="4" Parent="1" id="632291331">
+              <DataObject comp="14" obj="112"/>
+              <Access val="R"/>
+              <Share val="R"/>
+              <Open val="N"/>
+              <Cache val="N"/>
+              <IdentifyRowModifications val="84"/>
+            </DB>
+            <DB FieldID="4" Parent="1" id="632291330">
+              <DataObject comp="14" obj="118"/>
+              <Access val="W"/>
+              <Share val="R"/>
+              <Open val="N"/>
+              <Cache val="N"/>
+              <IdentifyRowModifications val="84"/>
+            </DB>
+            <Columns/>
+          </Resource>
+          <Information>
+            <Key>
+              <Mode val="N"/>
+            </Key>
+            <DB comp="-1"/>
+            <Sort>
+              <CLS val="A"/>
+            </Sort>
+            <ForceRecordDelete DEL="N"/>
+            <EndTaskCondition val="Y"/>
+            <EvaluateEndCondition val="A"/>
+            <InitialMode val="M"/>
+            <Locate Direction="A"/>
+            <Range Direction="A"/>
+            <VarRange/>
+            <TaskProperties>
+              <SelectionTable val="N"/>
+              <ConfirmUpdate CNFU="N"/>
+              <ConfirmCancel val="N"/>
+              <ErrorStrategy val="A"/>
+              <LockingStrategy val="M"/>
+              <CacheStrategy val="N"/>
+              <ForceRecordSuffix val="N"/>
+              <TransactionMode val="P"/>
+              <TransactionBegin val="N"/>
+              <PreloadView val="N"/>
+              <AllowEmptyDataview val="N"/>
+              <KeepCreatedContext val="N"/>
+            </TaskProperties>
+            <SIDE_WIN>
+              <AllowOptions val="N"/>
+              <AllowQuery val="Y"/>
+              <AllowModify val="Y"/>
+              <AllowCreate val="Y"/>
+              <AllowDelete val="Y"/>
+              <AllowLocate val="Y"/>
+              <AllowRange val="Y"/>
+              <AllowIndexChange val="Y"/>
+              <AllowSorting val="Y"/>
+              <AllowIOFiles val="Y"/>
+              <RecordCycle val="Y"/>
+              <AllowEvents val="N"/>
+              <AllowIndexOptimization val="Y"/>
+              <AllowLocationInQuery val="Y"/>
+              <AllowPrintingData val="N"/>
+            </SIDE_WIN>
+            <WIN>
+              <OpenTaskWindow val="N"/>
+              <CloseTaskWindow val="Y"/>
+              <ForegroundWindow val="Y"/>
+              <FlipFld val="N"/>
+              <RefreshTaskWindow ReturnValue="N"/>
+            </WIN>
+            <BOX>
+              <Direction val="V"/>
+            </BOX>
+          </Information>
+          <INT_CMP_LIST_INFO>
+            <v>14</v>
+          </INT_CMP_LIST_INFO>
+          <TaskLogic>
+            <LogicUnit id="1" propagate="78">
+              <Level val="R"/>
+              <Type val="M"/>
+              <Scope val="S"/>
+              <EngineDirective val="S"/>
+              <ShowMessage val="Y"/>
+              <Condition val="89"/>
+              <Event>
+                <EventType val="S"/>
+              </Event>
+              <LogicLines>
+                <LogicLine>
+                  <DATAVIEW_SRC FlowIsn="1" Type="M">
+                    <Condition val="N"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </DATAVIEW_SRC>
+                </LogicLine>
+                <LogicLine>
+                  <LNK Direction="A" EVL_CND="R" FlowIsn="2" Mode="R" SortType="3" VIEW="1" VIEWS="1">
+                    <DB comp="14" obj="111"/>
+                    <Condition val="Y"/>
+                  </LNK>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="1" FlowIsn="4" id="1">
+                    <Column val="8"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <END_LINK FlowIsn="3"/>
+                </LogicLine>
+                <LogicLine>
+                  <LNK Direction="A" EVL_CND="R" FlowIsn="632291341" Mode="R" SortType="632291342" VIEW="2" VIEWS="1">
+                    <DB comp="14" obj="112"/>
+                    <Condition val="Y"/>
+                  </LNK>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="632291331" FlowIsn="632291343" id="632291331">
+                    <Column val="111"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <INT_RCMP_INFO>
+                      <v>632291335</v>
+                      <v>632291344</v>
+                    </INT_RCMP_INFO>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <END_LINK FlowIsn="632291342"/>
+                </LogicLine>
+                <LogicLine>
+                  <LNK Direction="A" EVL_CND="R" FlowIsn="632291335" Mode="W" SortType="632291336" VIEW="3" VIEWS="2">
+                    <DB comp="14" obj="118"/>
+                    <Condition val="Y"/>
+                  </LNK>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="632291332" FlowIsn="632291344" id="632291332">
+                    <ASS val="632291332"/>
+                    <Column val="9"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <Locate MAX="632291332" MIN="632291332"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="632291330" FlowIsn="632291337" id="632291330">
+                    <Column val="632291412"/>
+                    <Type val="R"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="N"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <END_LINK FlowIsn="632291336"/>
+                </LogicLine>
+              </LogicLines>
+            </LogicUnit>
+            <LogicUnit id="2" propagate="78">
+              <Level val="R"/>
+              <Type val="S"/>
+              <Scope val="S"/>
+              <EngineDirective val="S"/>
+              <ShowMessage val="Y"/>
+              <Condition val="89"/>
+              <Event>
+                <EventType val="S"/>
+              </Event>
+              <LogicLines>
+                <LogicLine>
+                  <Update FlowIsn="5">
+                    <FieldID val="1"/>
+                    <WithValue val="2"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="632291338">
+                    <FieldID val="632291330"/>
+                    <WithValue val="632291331"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+              </LogicLines>
+            </LogicUnit>
+          </TaskLogic>
+          <TaskForms>
+            <FormEntry id="1">
+              <PropertyList model="FORM_GUI0">
+                <_Comment id="218"/>
+                <FormName id="311" valUnicode="UpdConceptTransactionContext"/>
+              </PropertyList>
+            </FormEntry>
+          </TaskForms>
+          <Expressions>
+            <Expression id="2">
+              <ExpSyntax val="{1,7}"/>
+              <ExpAttribute val="A"/>
+            </Expression>
+            <Expression id="632291331">
+              <ExpSyntax val="'TRUE'LOG"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="632291332">
+              <ExpSyntax val="{0,632291331}"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+          </Expressions>
+        </Task>
+        <Task MainProgram="N">
+          <Header Description="MaintainCalculation" ISN_2="4" LastIsn="4" id="872">
+            <LastModified _date="738210" _time="44684" date="24/02/2022" time="12:24:44"/>
+            <ExecutionRight comp="-1"/>
+            <Resident val="Y"/>
+            <SQL val="N"/>
+            <ReturnValue>
+              <ReturnValueAttr/>
+              <ParametersAttributes/>
+            </ReturnValue>
+            <SqlWhereExist val="N"/>
+            <TaskType val="O"/>
+            <External val="N"/>
+            <FormType val="N"/>
+            <DotNetObjectExists val="N"/>
+          </Header>
+          <ItemIsn val="4"/>
+          <Resource>
+            <Columns>
+              <Column id="2" name="v_Stop">
+                <PropertyList model="FIELD">
+                  <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                  <_FieldStyle id="276" val="1"/>
+                </PropertyList>
+              </Column>
+            </Columns>
+          </Resource>
+          <Information>
+            <Key>
+              <Mode val="N"/>
+            </Key>
+            <DB comp="-1"/>
+            <Sort>
+              <CLS val="A"/>
+            </Sort>
+            <ForceRecordDelete DEL="N"/>
+            <EndTaskCondition Exp="3"/>
+            <EvaluateEndCondition val="I"/>
+            <InitialMode val="M"/>
+            <Locate Direction="A"/>
+            <Range Direction="A"/>
+            <VarRange/>
+            <TaskProperties>
+              <SelectionTable val="N"/>
+              <ConfirmUpdate CNFU="N"/>
+              <ConfirmCancel val="N"/>
+              <ErrorStrategy val="R"/>
+              <LockingStrategy val="M"/>
+              <CacheStrategy val="N"/>
+              <ForceRecordSuffix val="N"/>
+              <TransactionMode val="W"/>
+              <TransactionBegin val="P"/>
+              <PreloadView val="N"/>
+              <AllowEmptyDataview val="Y"/>
+              <KeepCreatedContext val="N"/>
+            </TaskProperties>
+            <SIDE_WIN>
+              <AllowOptions val="Y"/>
+              <AllowQuery val="Y"/>
+              <AllowModify val="Y"/>
+              <AllowCreate val="Y"/>
+              <AllowDelete val="Y"/>
+              <AllowLocate val="Y"/>
+              <AllowRange val="Y"/>
+              <AllowIndexChange val="Y"/>
+              <AllowSorting val="Y"/>
+              <AllowIOFiles val="Y"/>
+              <RecordCycle val="Y"/>
+              <AllowEvents val="Y"/>
+              <AllowIndexOptimization val="Y"/>
+              <AllowLocationInQuery val="Y"/>
+              <AllowPrintingData val="N"/>
+            </SIDE_WIN>
+            <WIN>
+              <OpenTaskWindow val="Y"/>
+              <CloseTaskWindow val="Y"/>
+              <ForegroundWindow val="Y"/>
+              <FlipFld val="N"/>
+              <RefreshTaskWindow ReturnValue="N"/>
+            </WIN>
+            <BOX>
+              <Direction val="V"/>
+            </BOX>
+          </Information>
+          <INT_CMP_LIST_INFO>
+            <v>3</v>
+          </INT_CMP_LIST_INFO>
+          <TaskLogic>
+            <LogicUnit id="1" propagate="78">
+              <Level val="R"/>
+              <Type val="M"/>
+              <Scope val="S"/>
+              <EngineDirective val="S"/>
+              <ShowMessage val="Y"/>
+              <Condition val="89"/>
+              <Event>
+                <EventType val="S"/>
+              </Event>
+              <LogicLines>
+                <LogicLine>
+                  <DATAVIEW_SRC FlowIsn="1" Type="M">
+                    <Condition val="N"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </DATAVIEW_SRC>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="3" FlowIsn="3" id="3">
+                    <Column val="2"/>
+                    <Type val="V"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="Y"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+              </LogicLines>
+            </LogicUnit>
+            <LogicUnit id="2" propagate="78">
+              <Level val="H"/>
+              <Type val="U"/>
+              <Scope val="S"/>
+              <EngineDirective val="S"/>
+              <ShowMessage val="Y"/>
+              <Condition val="89"/>
+              <Event>
+                <EventType val="U"/>
+                <PublicObject comp="-1" obj="1"/>
+              </Event>
+              <LogicLines>
+                <LogicLine>
+                  <Update FlowIsn="4">
+                    <Parent val="1"/>
+                    <FieldID val="15"/>
+                    <WithValue val="2"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="6">
+                    <FieldID val="3"/>
+                    <WithValue val="2"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <RaiseEvent FlowIsn="8">
+                    <Event>
+                      <EventType val="I"/>
+                      <InternalEventID val="393"/>
+                    </Event>
+                    <Wait val="78"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </RaiseEvent>
+                </LogicLine>
+                <LogicLine>
+                  <RaiseEvent FlowIsn="12">
+                    <Event>
+                      <EventType val="I"/>
+                      <InternalEventID val="393"/>
+                    </Event>
+                    <Wait val="78"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </RaiseEvent>
+                </LogicLine>
+              </LogicLines>
+            </LogicUnit>
+            <LogicUnit id="4" propagate="78">
+              <Level val="H"/>
+              <Type val="U"/>
+              <Scope val="S"/>
+              <EngineDirective val="S"/>
+              <ShowMessage val="Y"/>
+              <Condition val="89"/>
+              <Event>
+                <EventType val="U"/>
+                <PublicObject comp="-1" obj="2"/>
+              </Event>
+              <LogicLines>
+                <LogicLine>
+                  <Update FlowIsn="7">
+                    <FieldID val="3"/>
+                    <WithValue val="2"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <RaiseEvent FlowIsn="9">
+                    <Event>
+                      <EventType val="I"/>
+                      <InternalEventID val="393"/>
+                    </Event>
+                    <Wait val="78"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </RaiseEvent>
+                </LogicLine>
+                <LogicLine>
+                  <RaiseEvent FlowIsn="13">
+                    <Event>
+                      <EventType val="I"/>
+                      <InternalEventID val="393"/>
+                    </Event>
+                    <Wait val="78"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </RaiseEvent>
+                </LogicLine>
+              </LogicLines>
+            </LogicUnit>
+          </TaskLogic>
+          <TaskForms>
+            <FormEntry _last_isn="3" _last_test_id="3" id="1">
+              <PropertyList model="FORM_GUI0">
+                <Model comp="3" id="1" obj="1"/>
+                <_Comment id="218"/>
+                <FormName id="311" valUnicode="MaintainCalculation"/>
+              </PropertyList>
+              <Control PDOD="128" _test_id="3" id="3">
+                <PropertyList model="CTRL_GUI0_SUBFORM">
+                  <Placement bottom="100" id="20" right="99"/>
+                  <X id="21" val="1"/>
+                  <Y id="22" val="2"/>
+                  <Width id="23" val="738"/>
+                  <Height id="24" val="368"/>
+                  <ControlName id="46" val="EntryTransactionCosts"/>
+                  <Arguments id="126">
+                    <Arguments>
+                      <Argument>
+                        <Parent val="1"/>
+                        <Variable val="4"/>
+                        <Skip val="N"/>
+                      </Argument>
+                      <Argument>
+                        <Expression val="1"/>
+                        <Skip val="N"/>
+                      </Argument>
+                      <Argument>
+                        <Expression val="1"/>
+                        <Skip val="N"/>
+                      </Argument>
+                    </Arguments>
+                  </Arguments>
+                  <TaskNumber comp="-1" id="183" obj="715"/>
+                  <TabOrder id="314" val="1"/>
+                </PropertyList>
+              </Control>
+              <Control PDOD="128" _test_id="1" id="1">
+                <PropertyList model="CTRL_GUI0_PUSH_BUTTON">
+                  <Model comp="3" id="1" obj="13"/>
+                  <X id="21" val="744"/>
+                  <Y id="22" val="334"/>
+                  <Width id="23" val="64"/>
+                  <Height id="24" val="16"/>
+                  <Data id="43"/>
+                  <RaiseEvent id="234">
+                    <EventType val="U"/>
+                    <PublicObject comp="-1" obj="1"/>
+                  </RaiseEvent>
+                  <TabOrder id="314" val="2"/>
+                </PropertyList>
+              </Control>
+              <Control PDOD="128" _test_id="2" id="2">
+                <PropertyList model="CTRL_GUI0_PUSH_BUTTON">
+                  <Model comp="3" id="1" obj="11"/>
+                  <X id="21" val="744"/>
+                  <Y id="22" val="354"/>
+                  <Width id="23" val="64"/>
+                  <Height id="24" val="16"/>
+                  <RaiseEvent id="234">
+                    <EventType val="U"/>
+                    <PublicObject comp="-1" obj="2"/>
+                  </RaiseEvent>
+                  <TabOrder id="314" val="3"/>
+                </PropertyList>
+              </Control>
+            </FormEntry>
+          </TaskForms>
+          <Expressions>
+            <Expression id="1">
+              <ExpSyntax val="'FALSE'LOG"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="2">
+              <ExpSyntax val="'TRUE'LOG"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="3">
+              <ExpSyntax val="{0,3}"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+          </Expressions>
+          <EVNT DESC="ConfirmPressed" FORCE_EXIT="N" id="1">
+            <Event>
+              <EventType val="N"/>
+            </Event>
+          </EVNT>
+          <EVNT DESC="CancelPressed" FORCE_EXIT="N" id="2">
+            <Event>
+              <EventType val="N"/>
+            </Event>
+          </EVNT>
+        </Task>
+      </Task>
+    </Programs>
+  </ProgramsRepository>
+
+</Application>

@@ -1,0 +1,10 @@
+Program ISN,Program #,Task,Name,Details
+279,,".2.1.1","SQL Dubbele Betaling?","select 1 from :1 wherebto_format = ':2' andbto_type = :3 andbto_d_account = ':4' andbto_d_amount =:5 andbto_c_account = ':6' andbto_settlement_date=':7' andbto_d_currency = ':8' andbto_c_currency = ':9' and bto_status<>3 and rownum<=1"
+503,,".6","Count","select 1 from payment_initiation pi, paym_init_status ps  where pi.status = ps.id  and ps.STATUS_TYPE > 1  and pi.CREATE_DATE < to_date(':1','YYYYMMDD') and rownum = 1"
+511,,".1","Schonen","delete from payment_initiation pi where exists (select 1 from paym_init_status ps where ps.ID = pi.status and ps.STATUS_TYPE > 1) and pi.CREATE_DATE < to_date(':1','YYYYMMDD')"
+511,,".2","Count","select count(*) from payment_initiation pi, paym_init_status ps where pi.status = ps.id and ps.STATUS_TYPE > 1 and pi.CREATE_DATE < to_date(':1','YYYYMMDD')"
+511,,".5","Schonen Reversals","delete from payment_reversals where lock_date < to_date (':1','YYYYMMDD')"
+512,,".1","Lock","select transaction_id, channel_code from paym_init_lockswhere transaction_id in (:1)for update"
+525,,".1","SQLCheckPaymentInitiation","select 1 from payment_initiation i, paym_init_status swhere i.status = s.idand s.status_type = 1and (i.cred_re_id = :1 or i.debt_re_id = :1)and rownum <= 1"
+525,,".2","SQLCheckBVBetalingenOut","select 1 from bv_betalingen_out twhere (t.bto_status = 1 or t.bto_status in (2,21) and t.bto_type<>100 and t.bto_format in ('HAND','SEPA'))and (t.bto_c_re_id = :1 or t.bto_d_re_id = :1) and rownum <= 1"
+379585174,,".2.2","Obv holdernummer","select h.bbh_adp_nr  from belaste_betalingen_header hwhere h.bbh_relatienummer in(select hpp.hpp_relatienummer from holders_per_product hpp where hpp.hpp_holdernummer = :1 and hpp.hpp_type_holder = 1)and h.bbh_opdrachtnummer<>:2 and h.bbh_adp_nr = ~3 and rownum <= 1"

@@ -1,0 +1,1195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Application>
+
+  <Header>
+    <Version val="13021"/>
+    <WithIsn val="Y"/>
+    <_InternalTask val="N"/>
+    <IsRoot val="N"/>
+    <InIndex val="N"/>
+    <UniqueISNConvState val="12"/>
+  </Header>
+
+  <ProgramsRepository>
+    <Programs>
+      <Task MainProgram="N">
+        <Header Description="getRoutingSlipRootTag" ISN_2="1" LastIsn="1" id="20">
+          <Comment val="/*Bepaling van de 'Root' tag welke gebruikt wordt om een routingslip uit te kunnen breiden.*/"/>
+          <ExecutionRight comp="-1"/>
+          <Resident val="Y"/>
+          <SQL val="N"/>
+          <ReturnValue>
+            <ReturnValueAttr/>
+            <TSK_PARAMS val="8"/>
+            <ParametersAttributes>
+              <Attr MgAttr="A"/>
+              <Attr MgAttr="A"/>
+              <Attr MgAttr="A"/>
+              <Attr MgAttr="B"/>
+              <Attr MgAttr="O"/>
+              <Attr MgAttr="B"/>
+              <Attr MgAttr="B"/>
+              <Attr MgAttr="B"/>
+            </ParametersAttributes>
+          </ReturnValue>
+          <SqlWhereExist val="N"/>
+          <TaskType val="B"/>
+          <External val="N"/>
+          <Offline val="N"/>
+          <FormType val="N"/>
+          <DotNetObjectExists val="N"/>
+          <LastModified _date="736763" _time="43200" date="10/03/2018" time="12:00:00"/>
+        </Header>
+        <ItemIsn val="15"/>
+        <Resource>
+          <Columns>
+            <Column id="24" name="pi-_ProcessingInstrPath">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" id="1"/>
+                <Picture id="157" valUnicode="200"/>
+                <StoredAs id="173" val="1"/>
+                <Size id="174" val="200"/>
+                <_Flip id="194"/>
+              </PropertyList>
+            </Column>
+            <Column id="38" name="pi-_onSuccessTag">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" id="1"/>
+                <Picture id="157" valUnicode="10"/>
+                <Size id="174" val="10"/>
+                <_Flip id="194"/>
+                <_FieldStyle id="276" val="1"/>
+                <Content id="434" val="2"/>
+              </PropertyList>
+            </Column>
+            <Column id="39" name="pi-_onErrorTag">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" id="1"/>
+                <Picture id="157" valUnicode="8"/>
+                <Size id="174" val="8"/>
+                <_Flip id="194"/>
+                <_FieldStyle id="276" val="1"/>
+                <Content id="434" val="2"/>
+              </PropertyList>
+            </Column>
+            <Column id="44" name="pi-_Incl.LastTag?">
+              <Comment val="/*Inclusief de laatst toegevoegde onSuccess of onError blok.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="31" name="p-o_RootTag">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_BLOB" id="1"/>
+                <StoredAs id="173" val="34"/>
+                <Size id="174" val="28"/>
+                <Definition id="175" val="1"/>
+                <_FieldStyle id="276" val="1"/>
+                <Content id="434" val="2"/>
+              </PropertyList>
+            </Column>
+            <Column id="2" name="p-o_OnSuccesBlokToevoegen?">
+              <Comment val="/*'True' geeft aan dat er een 'onSucces' blok aan de routing slip moet worden toegevoegd met de opgegeven 'Destination' en 'Name'. Aan de in parameter 'pi-_RoutingSlipBlob' meegegeven routing slip wordt het blok toegevoegd. De parameter 'pi-_OnErrorBlokToevoegen?' zal niet worden geëvalueerd als 'pi-_OnSuccesBlokToevoegen?' 'True' is. Is er al een onSucces blok aanwezig, dan wordt aan dit block een extra procesinstruction toegevoegd.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="3" name="p-o_OnErrorBlokToevoegen?">
+              <Comment val="/*'True' geeft aan dat er een 'onError' blok aan de routing slip moet worden toegevoegd met de opgegeven 'Destination' en 'Name'. Aan de in parameter 'pi-_RoutingSlipBlob' meegegeven routing slip wordt het blok toegevoegd. Deze parameter zal niet worden geëvalueerd als 'pi-_OnSuccesBlokToevoegen?' 'True' is. Het 'onError' blok kan maar 1 keer worden toegevoegd.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="26" name="p-o_RootToevoegen?">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="33" name="v_ProcessingInstrPathElem">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" id="1"/>
+                <Picture id="157" valUnicode="4"/>
+                <StoredAs id="173" val="1"/>
+                <Size id="174" val="4"/>
+                <_Flip id="194"/>
+              </PropertyList>
+            </Column>
+            <Column id="35" name="v_OnSuccessBlok?">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="34" name="v_ProcessingInstructionIndex">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" id="1"/>
+                <Picture id="157" valUnicode="3"/>
+                <StoredAs id="173" val="1"/>
+                <Size id="174" val="3"/>
+                <_Flip id="194"/>
+              </PropertyList>
+            </Column>
+            <Column id="43" name="v_ProcessingInstructionTag">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" id="1"/>
+                <Picture id="157" valUnicode="50"/>
+                <StoredAs id="173" val="1"/>
+                <Size id="174" val="50"/>
+                <_Flip id="194"/>
+              </PropertyList>
+            </Column>
+            <Column id="37" name="v_OnErrorBlok?">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="28" name="v_ProcessingInstrPathError?">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="32" name="v_AantalNiveaus">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" id="1"/>
+                <Picture id="157" valUnicode="3"/>
+                <_Dec id="181"/>
+                <_Whole id="182" val="3"/>
+                <_Negative id="192"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+          </Columns>
+        </Resource>
+        <Information>
+          <Key>
+            <Mode val="N"/>
+          </Key>
+          <DB comp="-1"/>
+          <Sort>
+            <CLS val="A"/>
+          </Sort>
+          <ForceRecordDelete DEL="N"/>
+          <EndTaskCondition val="Y"/>
+          <EvaluateEndCondition val="B"/>
+          <InitialMode val="E"/>
+          <Locate Direction="A"/>
+          <Range Direction="A"/>
+          <VarRange/>
+          <TaskProperties>
+            <SelectionTable val="N"/>
+            <ConfirmUpdate CNFU="N"/>
+            <ConfirmCancel val="N"/>
+            <ErrorStrategy val="A"/>
+            <LockingStrategy val="M"/>
+            <CacheStrategy val="T"/>
+            <ForceRecordSuffix val="N"/>
+            <TransactionMode val="P"/>
+            <TransactionBegin val="N"/>
+            <PreloadView val="N"/>
+            <AllowEmptyDataview val="N"/>
+            <KeepCreatedContext val="N"/>
+          </TaskProperties>
+          <SIDE_WIN>
+            <AllowOptions val="N"/>
+            <AllowQuery val="Y"/>
+            <AllowModify val="Y"/>
+            <AllowCreate val="Y"/>
+            <AllowDelete val="Y"/>
+            <AllowLocate val="Y"/>
+            <AllowRange val="Y"/>
+            <AllowIndexChange val="Y"/>
+            <AllowSorting val="Y"/>
+            <AllowIOFiles val="Y"/>
+            <RecordCycle val="Y"/>
+            <AllowEvents val="N"/>
+            <AllowIndexOptimization val="Y"/>
+            <AllowLocationInQuery val="Y"/>
+            <AllowPrintingData val="N"/>
+          </SIDE_WIN>
+          <WIN>
+            <OpenTaskWindow val="N"/>
+            <CloseTaskWindow val="Y"/>
+            <ForegroundWindow val="Y"/>
+            <FlipFld val="N"/>
+            <RefreshTaskWindow ReturnValue="N"/>
+          </WIN>
+          <BOX>
+            <Direction val="V"/>
+          </BOX>
+        </Information>
+        <TaskLogic>
+          <LogicUnit id="2" propagate="78">
+            <Level val="R"/>
+            <Type val="M"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+              <PublicObject comp="-1"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <DATAVIEW_SRC FlowIsn="2" Type="M">
+                  <Condition val="N"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </DATAVIEW_SRC>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1" FlowIsn="3" id="1">
+                  <Column val="24"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="2" FlowIsn="4" id="2">
+                  <Column val="38"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="3" FlowIsn="5" id="3">
+                  <Column val="39"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="4" FlowIsn="6" id="4">
+                  <Column val="44"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="5" FlowIsn="7" id="5">
+                  <Column val="31"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="6" FlowIsn="8" id="6">
+                  <Column val="2"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="7" FlowIsn="9" id="7">
+                  <Column val="3"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="8" FlowIsn="10" id="8">
+                  <Column val="26"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="11">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="9" FlowIsn="12" id="9">
+                  <Column val="33"/>
+                  <Type val="V"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="10" FlowIsn="13" id="10">
+                  <Column val="35"/>
+                  <Type val="V"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="11" FlowIsn="14" id="11">
+                  <Column val="34"/>
+                  <Type val="V"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="12" FlowIsn="15" id="12">
+                  <Column val="43"/>
+                  <Type val="V"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="13" FlowIsn="16" id="13">
+                  <Column val="37"/>
+                  <Type val="V"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="14" FlowIsn="17" id="14">
+                  <Column val="28"/>
+                  <Type val="V"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="18">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="15" FlowIsn="19" id="15">
+                  <Column val="32"/>
+                  <Type val="V"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="3" propagate="78">
+            <Level val="T"/>
+            <Type val="P"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+              <PublicObject comp="-1"/>
+            </Event>
+            <Expanded val="1"/>
+            <LogicLines>
+              <LogicLine>
+                <Remark FlowIsn="20">
+                  <Type val="2"/>
+                  <Text val="Initialiseren :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="21">
+                  <FieldID val="5"/>
+                  <WithValue val="1"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="22">
+                  <FieldID val="6"/>
+                  <WithValue val="2"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="23">
+                  <FieldID val="7"/>
+                  <WithValue val="2"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="24">
+                  <FieldID val="8"/>
+                  <WithValue val="2"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="25">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="26">
+                  <Type val="2"/>
+                  <Text val="Rootelement bepalen :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="27">
+                  <Type val="2"/>
+                  <Text val="Afhankelijk van het ProcessingInstrPath wordt de root uitgebreid:"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="28">
+                  <Type val="2"/>
+                  <Text val="In de ProcessingInstrPath worden de verschillende niveaus van elkaar gescheiden door ';' , wordt een"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="29">
+                  <Type val="2"/>
+                  <Text val="onError blok aangegeven met een 'E' en onSuccess blok aangegeven met een 'S'. Omdat er  per niveau in"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="30">
+                  <Type val="2"/>
+                  <Text val="een 'onSuccess' blok meerdere 'processingInstruction' blokken kunnen worden opgegeven, geeft een"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="31">
+                  <Type val="2"/>
+                  <Text val="index cijfer achter de 'S' aan om welk 'processingInstruction' blok het gaat."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="32">
+                  <Type val="2"/>
+                  <Text val="Achter een 'E' staat nooit een index cijfer (deze is altijd 1)."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="33">
+                  <Type val="2"/>
+                  <Text val="Het laatste element van het ProcessingInstrPath geeft aan of er een onSucces of een onError blok"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="34">
+                  <Type val="2"/>
+                  <Text val=" moet worden toegevoegd. In dit laatste element zal index cijfer worden genegeerd, wat inhoudt dat"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="35">
+                  <Type val="2"/>
+                  <Text val="extra onSucces blokken op een zelfde niveau altijd aan het eind zullen worden toegevoegd!"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="36">
+                  <Type val="2"/>
+                  <Text val="Wordt aangegeven dat het laatste onSucces of onError blok in de RootTag moet worden opgenomen, dan"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="37">
+                  <Type val="2"/>
+                  <Text val="zal niet worden aangegeven wat moet worden toegevoegd, maar is dit in de RootTag opgenomen."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="38">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="104" EndBlockSegment="98" FlowIsn="39" Type="I">
+                  <Condition Exp="3"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="40">
+                  <FieldID val="15"/>
+                  <WithValue val="4"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="96" EndBlockSegment="96" FlowIsn="41" Type="L">
+                  <Condition Exp="5"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="42">
+                  <Type val="2"/>
+                  <Text val="Bepalen of de 'processingInstruction' tag VOOR het 'onSuccess' of 'onError' blok moet worden opgenomen."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="43">
+                  <Type val="2"/>
+                  <Text val="Als het niveau HIERVOOR een 'OnSuccess'  blok was, of de root, dan moet de 'processingInstruction' tag"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="44">
+                  <Type val="2"/>
+                  <Text val="worden opgenomen :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="49" EndBlockSegment="47" FlowIsn="45" Type="I">
+                  <Condition Exp="6"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="46">
+                  <FieldID val="12"/>
+                  <WithValue val="7"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="49" EndBlockSegment="49" FlowIsn="47" Type="E">
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="48">
+                  <FieldID val="12"/>
+                  <WithValue val="8"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="49"/>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="50">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="51">
+                  <Type val="2"/>
+                  <Text val="Element bepalen :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="52">
+                  <FieldID val="9"/>
+                  <WithValue val="9"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="53">
+                  <Type val="2"/>
+                  <Text val="onError"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="71" EndBlockSegment="60" FlowIsn="54" Type="I">
+                  <Condition Exp="10"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="55">
+                  <FieldID val="13"/>
+                  <WithValue val="11"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="56">
+                  <FieldID val="10"/>
+                  <WithValue val="2"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="57">
+                  <FieldID val="11"/>
+                  <WithValue val="8"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="58">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="59">
+                  <Type val="2"/>
+                  <Text val="onSucces"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="71" EndBlockSegment="69" FlowIsn="60" Type="E">
+                  <Condition Exp="12"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="61">
+                  <FieldID val="10"/>
+                  <WithValue val="11"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="62">
+                  <FieldID val="11"/>
+                  <WithValue val="13"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="63">
+                  <Type val="2"/>
+                  <Text val="Index = 1 wordt niet gebruikt :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="64">
+                  <FieldID val="11"/>
+                  <WithValue val="8"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition Exp="14"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="65">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="66">
+                  <FieldID val="13"/>
+                  <WithValue val="2"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="67">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="68">
+                  <Type val="2"/>
+                  <Text val="Fout :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="71" EndBlockSegment="71" FlowIsn="69" Type="E">
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="70">
+                  <FieldID val="14"/>
+                  <WithValue val="11"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="71"/>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="72">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="73">
+                  <Type val="2"/>
+                  <Text val="Het laatste element :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="95" EndBlockSegment="92" FlowIsn="74" Type="I">
+                  <Condition Exp="15"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="75">
+                  <FieldID val="5"/>
+                  <WithValue val="16"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="76">
+                  <Type val="2"/>
+                  <Text val="Het laatste element toevoegen aan de rootTag:"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="89" EndBlockSegment="86" FlowIsn="77" Type="I">
+                  <Condition Exp="17"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="82" EndBlockSegment="80" FlowIsn="78" Type="I">
+                  <Condition Exp="18"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="79">
+                  <FieldID val="12"/>
+                  <WithValue val="7"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="82" EndBlockSegment="82" FlowIsn="80" Type="E">
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="81">
+                  <FieldID val="12"/>
+                  <WithValue val="8"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="82"/>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="83">
+                  <FieldID val="5"/>
+                  <WithValue val="19"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="84">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="85">
+                  <Type val="2"/>
+                  <Text val="Uit het laatste element afleiden wat er moet worden toegevoegd :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="89" EndBlockSegment="89" FlowIsn="86" Type="E">
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="87">
+                  <FieldID val="6"/>
+                  <WithValue val="11"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition Exp="18"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="88">
+                  <FieldID val="7"/>
+                  <WithValue val="11"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition Exp="20"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="89"/>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="90">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="91">
+                  <Type val="2"/>
+                  <Text val="Voor de andere elementen wordt het Root Element uitgebreidt:"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="95" EndBlockSegment="95" FlowIsn="92" Type="E">
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="93">
+                  <FieldID val="5"/>
+                  <WithValue val="21"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="94">
+                  <Type val="2"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="95"/>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="96"/>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="97">
+                  <Type val="2"/>
+                  <Text val="Het Root element toevoegen :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="104" EndBlockSegment="104" FlowIsn="98" Type="E">
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="103" EndBlockSegment="101" FlowIsn="99" Type="I">
+                  <Condition Exp="17"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="100">
+                  <FieldID val="5"/>
+                  <WithValue val="22"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <BLOCK EndBlock="103" EndBlockSegment="103" FlowIsn="101" Type="E">
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </BLOCK>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="102">
+                  <FieldID val="8"/>
+                  <WithValue val="11"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="103"/>
+              </LogicLine>
+              <LogicLine>
+                <END_BLK FlowIsn="104"/>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="105">
+                  <Type val="2"/>
+                  <Text val="Fout opgetreden, dan Root leegmaken :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="106">
+                  <FieldID val="5"/>
+                  <WithValue val="24"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition Exp="23"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+        </TaskLogic>
+        <TaskForms>
+          <FormEntry id="2">
+            <PropertyList model="FORM_GUI0">
+              <_Comment id="218"/>
+              <FormName id="311" valUnicode="getRoutingSlipRootTag"/>
+            </PropertyList>
+          </FormEntry>
+        </TaskForms>
+        <Expressions>
+          <Expression id="1">
+            <ExpSyntax val="'/routing:routingSlip'"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="2">
+            <ExpSyntax val="'FALSE'LOG"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="3">
+            <ExpSyntax val="{0,1}&lt;>''"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="4">
+            <ExpSyntax val="StrTokenCnt({0,1},';')"/>
+            <ExpAttribute val="N"/>
+          </Expression>
+          <Expression id="5">
+            <ExpSyntax val="LoopCounter()&lt;={0,15} AND NOT({0,14})"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="6">
+            <ExpSyntax val="{0,10} OR LoopCounter()=1"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="7">
+            <ExpSyntax val="'/processingInstruction'&amp;IF({0,11}&lt;>'','['&amp;Trim({0,11})&amp;']','')"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="8">
+            <ExpSyntax val="''"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="9">
+            <ExpSyntax val="StrToken({0,1},LoopCounter(),';')"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="10">
+            <ExpSyntax val="Left({0,9},1)='E'"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="11">
+            <ExpSyntax val="'TRUE'LOG"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="12">
+            <ExpSyntax val="Left({0,9},1)='S'"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="13">
+            <ExpSyntax val="Trim(MID({0,9},2,3))"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="14">
+            <ExpSyntax val="Trim({0,11})='1'"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="15">
+            <ExpSyntax val="LoopCounter()={0,15}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="16">
+            <ExpSyntax val="Trim({0,5})&amp;Trim({0,12})"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="17">
+            <ExpSyntax val="{0,4}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="18">
+            <ExpSyntax val="{0,10}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="19">
+            <ExpSyntax val="Trim({0,5})&amp;IF({0,13},Trim({0,3}),IF({0,10},Trim({0,2})&amp;Trim({0,12}),''))"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="20">
+            <ExpSyntax val="{0,13}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="21">
+            <ExpSyntax val="Trim({0,5})&amp;Trim({0,12})&amp;IF({0,13},Trim({0,3}),IF({0,10},Trim({0,2}),''))"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="22">
+            <ExpSyntax val="Trim({0,5})&amp;'/processingInstruction'"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="24">
+            <ExpSyntax val="NULL()"/>
+            <ExpAttribute val="*"/>
+          </Expression>
+          <Expression id="23">
+            <ExpSyntax val="{0,14}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+        </Expressions>
+      </Task>
+    </Programs>
+  </ProgramsRepository>
+
+</Application>

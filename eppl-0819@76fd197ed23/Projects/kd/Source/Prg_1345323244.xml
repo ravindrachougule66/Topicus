@@ -1,0 +1,1337 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Application>
+
+  <Header>
+    <Version val="14100.00"/>
+    <WithIsn val="Y"/>
+    <_InternalTask val="N"/>
+    <IsRoot val="N"/>
+    <InIndex val="N"/>
+    <UniqueISNConvState val="12"/>
+  </Header>
+
+  <ProgramsRepository>
+    <Programs>
+      <Task MainProgram="N">
+        <Header Description="GetFirstNewCalculationPeriod" ISN_2="1" LastIsn="2" id="1345323244">
+          <LastModified _date="739096" _time="31264" date="29/07/2024" time="08:41:04"/>
+          <Comment val="/*Gets the first period to be calculated.*/"/>
+          <ExecutionRight comp="-1"/>
+          <Resident val="Y"/>
+          <SQL val="N"/>
+          <ReturnValue>
+            <ReturnValueAttr/>
+            <TSK_PARAMS val="17"/>
+            <ParametersAttributes>
+              <Attr MgAttr="B"/>
+              <Attr MgAttr="D"/>
+              <Attr MgAttr="D"/>
+              <Attr MgAttr="D"/>
+              <Attr MgAttr="B"/>
+              <Attr MgAttr="N"/>
+              <Attr MgAttr="A"/>
+              <Attr MgAttr="N"/>
+              <Attr MgAttr="N"/>
+              <Attr MgAttr="A"/>
+              <Attr MgAttr="N"/>
+              <Attr MgAttr="B"/>
+              <Attr MgAttr="D"/>
+              <Attr MgAttr="D"/>
+              <Attr MgAttr="B"/>
+              <Attr MgAttr="B"/>
+              <Attr MgAttr="B"/>
+            </ParametersAttributes>
+          </ReturnValue>
+          <SqlWhereExist val="N"/>
+          <TaskType val="B"/>
+          <External val="N"/>
+          <Offline val="N"/>
+          <FormType val="N"/>
+          <DotNetObjectExists val="N"/>
+        </Header>
+        <ItemIsn val="25"/>
+        <Resource>
+          <Columns>
+            <Column id="2082471953" name="pi-_IsCalculationTrigger">
+              <Comment val="/*Is the first calculation which potentially triggers calculations of following periods.&#xD;&#xA;Is used to determine which calculation variant to use to determine the first calculation period. Next calculations always use the given calculation variant to determine the period. Variants 3 Proforma always uses variant 3 to determine the period. The rest of the variants use the max period of calculations of variants 1,4,5 for the determination of the period  for the first calculation.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323019" name="pi-_FeeChargeStartDate">
+              <Comment val="/*Start date of which the calculation of charges takes place (PRODUCT_FEE_LINES.START_DATE).*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_DATE" comp="2" id="1" obj="37"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323020" name="pi-_FeeChargeEndDate">
+              <Comment val="/*End date up and until which the calculation of charges takes place. (PRODUCT_FEE_LINES.END_DATE)*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_DATE" comp="2" id="1" obj="37"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323011" name="pi-_ReferenceDate">
+              <Comment val="/*Date up to and including which the calculation must be executed. When skipped or when a given reference date is greater than today, yesterday is used.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_DATE" comp="2" id="1" obj="37"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323022" name="pi-_IsIntermediatePeriodAllowed">
+              <Comment val="/*TRUE = period will be maximized by the given ReferenceDate. FALSE=Only period endings compliant to the calculation frequency and before the given ReferenceDate are returned.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323009" name="pi-_PPR_ID">
+              <Comment val="/*PRODUCTEN_PER_RELATIE.PPR_ID*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" comp="2" id="1" obj="885"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323015" name="pi-_CalculationFrequency">
+              <Comment val="/*DOORBELHEADER.DH_PERIODE_FREQUENTI . (J)aar,(K)wartaal OR (M)aand. The frequency after which a calculation is executed. */"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" comp="-1" id="1" obj="301989891"/>
+                <StoredAs id="173" val="1"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323021" name="pi-_CalculationVariant">
+              <Comment val="/* 1 Regular, 3 ProForma, 4 Termination, 5 Intermediate, 9 Concept*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" comp="10" id="1" obj="1345323278"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323010" name="pi-_ChargeTypeId">
+              <Comment val="/*CHARGE_TYPES.ID*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" comp="10" id="1" obj="1345323279"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323016" name="pi-_ChargeFrequency">
+              <Comment val="/*DOORBELHEADER.CHARGE_FREQUENCY  (K)wartaal,(J)aar OR (A)s calculation. The frequency after which the calculated fee is charged.*/&#xD;&#xA;"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" id="1"/>
+                <Picture id="157" valUnicode="1"/>
+                <NullDefault id="169"/>
+                <StoredAs id="173" val="1"/>
+                <Size id="174" val="1"/>
+                <_Flip id="194"/>
+              </PropertyList>
+            </Column>
+            <Column id="1987051538" name="pi-_Trigger_CFH_ID">
+              <Comment val="/*Calculated Fee Header Id of which the processing triggered the current calculation. Only relevant for asynchronic processing.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" comp="2" id="1" obj="1174407702"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323012" name="p-o_PeriodFound">
+              <Comment val="/*TRUE when a new calculation period is found.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323013" name="p-o_PeriodStartDate">
+              <Comment val="/*Start date of the first period to be calculated.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_DATE" comp="2" id="1" obj="37"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323014" name="p-o_PeriodEndDate">
+              <Comment val="/*End date of the first period to be calculated.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_DATE" comp="2" id="1" obj="37"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323017" name="p-o_IsPartialPeriod">
+              <Comment val="/*TRUE : PeriodEndDate does NOT correspond to the end date of the calculation frequency.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323018" name="p-o_IsLastPeriodChargeFrequency">
+              <Comment val="/*TRUE : PeriodEndDate  lies within the last calculation frequency of the charging frequency.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323024" name="p-o_IsNextCalcPeriodPresent">
+              <Comment val="/*TRUE as long as the reference date is after the PeriodEndDate AND the reference date is also after the next PeriodEndDate OR an intermediate period is allowed.*/"/>
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="1345323023" name="v_ReferenceDate">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_DATE" comp="2" id="1" obj="37"/>
+              </PropertyList>
+            </Column>
+            <Column id="881852435" name="v_RECORD_STATE_Selection">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" comp="-1" id="1" obj="301989893"/>
+                <DbColumnName id="178"/>
+                <Type id="179"/>
+                <UserType id="180"/>
+              </PropertyList>
+            </Column>
+          </Columns>
+        </Resource>
+        <Information>
+          <Key>
+            <Mode val="N"/>
+          </Key>
+          <DB comp="-1"/>
+          <Sort>
+            <CLS val="A"/>
+          </Sort>
+          <ForceRecordDelete DEL="N"/>
+          <EndTaskCondition val="Y"/>
+          <EvaluateEndCondition val="A"/>
+          <InitialMode val="M"/>
+          <Locate Direction="A"/>
+          <Range Direction="A"/>
+          <VarRange/>
+          <TaskProperties>
+            <SelectionTable val="N"/>
+            <ConfirmUpdate CNFU="N"/>
+            <ConfirmCancel val="N"/>
+            <ErrorStrategy val="A"/>
+            <LockingStrategy val="M"/>
+            <CacheStrategy val="T"/>
+            <ForceRecordSuffix val="N"/>
+            <TransactionMode val="P"/>
+            <TransactionBegin val="N"/>
+            <PreloadView val="N"/>
+            <AllowEmptyDataview val="N"/>
+            <KeepCreatedContext val="N"/>
+          </TaskProperties>
+          <SIDE_WIN>
+            <AllowOptions val="N"/>
+            <AllowQuery val="Y"/>
+            <AllowModify val="Y"/>
+            <AllowCreate val="Y"/>
+            <AllowDelete val="Y"/>
+            <AllowLocate val="Y"/>
+            <AllowRange val="Y"/>
+            <AllowIndexChange val="Y"/>
+            <AllowSorting val="Y"/>
+            <AllowIOFiles val="Y"/>
+            <RecordCycle val="Y"/>
+            <AllowEvents val="N"/>
+            <AllowIndexOptimization val="Y"/>
+            <AllowLocationInQuery val="Y"/>
+            <AllowPrintingData val="N"/>
+          </SIDE_WIN>
+          <WIN>
+            <OpenTaskWindow val="N"/>
+            <CloseTaskWindow val="Y"/>
+            <ForegroundWindow val="Y"/>
+            <FlipFld val="N"/>
+            <RefreshTaskWindow ReturnValue="N"/>
+          </WIN>
+          <BOX>
+            <Direction val="V"/>
+          </BOX>
+        </Information>
+        <INT_CMP_LIST_INFO>
+          <v>10</v>
+          <v>2</v>
+        </INT_CMP_LIST_INFO>
+        <TaskLogic>
+          <LogicUnit id="3" propagate="78">
+            <Level val="R"/>
+            <Type val="M"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <DATAVIEW_SRC FlowIsn="1345323009" Type="M">
+                  <Condition val="N"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </DATAVIEW_SRC>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="2082471955" FlowIsn="2082472041" id="2082471955">
+                  <Column val="2082471953"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323021" FlowIsn="1345323043" id="1345323021">
+                  <Column val="1345323019"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323022" FlowIsn="1345323044" id="1345323022">
+                  <Column val="1345323020"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323011" FlowIsn="1345323013" id="1345323011">
+                  <Column val="1345323011"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <INT_RCMP_INFO>
+                    <v>1345323045</v>
+                  </INT_RCMP_INFO>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323024" FlowIsn="1345323082" id="1345323024">
+                  <Column val="1345323022"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323009" FlowIsn="1345323011" id="1345323009">
+                  <Column val="1345323009"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323015" FlowIsn="1345323019" id="1345323015">
+                  <Column val="1345323015"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <INT_RCMP_INFO>
+                    <v>881852564</v>
+                  </INT_RCMP_INFO>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323023" FlowIsn="1345323064" id="1345323023">
+                  <Column val="1345323021"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323010" FlowIsn="1345323012" id="1345323010">
+                  <Column val="1345323010"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323016" FlowIsn="1345323023" id="1345323016">
+                  <Column val="1345323016"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <INT_RCMP_INFO>
+                    <v>881852564</v>
+                  </INT_RCMP_INFO>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1987051540" FlowIsn="1987051651" id="1987051540">
+                  <Column val="1987051538"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323012" FlowIsn="1345323014" id="1345323012">
+                  <Column val="1345323012"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323013" FlowIsn="1345323015" id="1345323013">
+                  <Column val="1345323013"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323014" FlowIsn="1345323016" id="1345323014">
+                  <Column val="1345323014"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323017" FlowIsn="1345323027" id="1345323017">
+                  <Column val="1345323017"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323018" FlowIsn="1345323028" id="1345323018">
+                  <Column val="1345323018"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323026" FlowIsn="1345323102" id="1345323026">
+                  <Column val="1345323024"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="1345323035">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1345323025" FlowIsn="1345323045" id="1345323025">
+                  <ASS val="1345323014"/>
+                  <Column val="1345323023"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="881852565">
+                  <Type val="0"/>
+                  <Text val="When calculation frequency and charge frequency differ from each other multiple calculations will be charged in one charge."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="881852566">
+                  <Type val="0"/>
+                  <Text val="If that's the case, existing calculations will be taken into account even if they are only calculated"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="881852567">
+                  <Type val="0"/>
+                  <Text val="(SERVICEFEE_HDR.RECORD_STATE >=1) , if that's not the case existing calculations must at least been"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="881852568">
+                  <Type val="0"/>
+                  <Text val="offered for processing (SERVICEFEE_HDR.RECORD_STATE >=5)."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="881852438" FlowIsn="881852564" id="881852438">
+                  <ASS val="881852423"/>
+                  <Column val="881852435"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="4" propagate="78">
+            <Level val="T"/>
+            <Type val="P"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <Remark FlowIsn="1345323034">
+                  <Type val="2"/>
+                  <Text val="Reset :"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="1345323029">
+                  <FieldID val="1345323012"/>
+                  <WithValue val="1345323009"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="1345323030">
+                  <FieldID val="1345323013"/>
+                  <WithValue val="1345323011"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="1345323031">
+                  <FieldID val="1345323014"/>
+                  <WithValue val="1345323011"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="1345323032">
+                  <FieldID val="1345323017"/>
+                  <WithValue val="1345323009"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="1345323033">
+                  <FieldID val="1345323018"/>
+                  <WithValue val="1345323009"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+              <LogicLine>
+                <Update FlowIsn="1345323103">
+                  <FieldID val="1345323026"/>
+                  <WithValue val="1345323009"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="5" propagate="78">
+            <Level val="R"/>
+            <Type val="S"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <CallTask FlowIsn="1345323081">
+                  <OperationType val="T"/>
+                  <Event>
+                    <EventType val="N"/>
+                  </Event>
+                  <TaskID comp="-1" obj="1345323010"/>
+                  <Lock val="N"/>
+                  <Wait val="Y"/>
+                  <SyncData val="N"/>
+                  <RetainFocus val="N"/>
+                  <Condition Exp="1345323013"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </CallTask>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+        </TaskLogic>
+        <TaskForms>
+          <FormEntry id="1">
+            <PropertyList model="FORM_GUI0">
+              <_Comment id="218"/>
+              <FormName id="311" valUnicode="GetFirstNewCalculationPeriod"/>
+            </PropertyList>
+          </FormEntry>
+        </TaskForms>
+        <Expressions>
+          <Expression id="1345323009">
+            <ExpSyntax val="'FALSE'LOG"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="1345323011">
+            <ExpSyntax val="NULL()"/>
+            <ExpAttribute val="*"/>
+          </Expression>
+          <Expression id="1345323014">
+            <ExpSyntax val="IF(ISNULL({0,1345323011}) OR {0,1345323011}>AddDate(Date(),0,0,-1),AddDate(Date(),0,0,-1),{0,1345323011})"/>
+            <ExpAttribute val="D"/>
+          </Expression>
+          <Expression id="1345323013">
+            <ExpSyntax val="Range({0,1345323025},{0,1345323021},IF(ISNULL({0,1345323022}),Date(),{0,1345323022}))"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="881852423">
+            <ExpSyntax val="IF({0,1345323015}&lt;>{0,1345323016},1,5)"/>
+            <ExpAttribute val="N"/>
+          </Expression>
+        </Expressions>
+        <Task MainProgram="N">
+          <Header Description="GetNewCalculationPeriod" ISN_2="1345323010" LastIsn="2" id="1345323244">
+            <LastModified _date="739096" _time="31264" date="29/07/2024" time="08:41:04"/>
+            <ExecutionRight comp="-1"/>
+            <Resident val="Y"/>
+            <SQL val="Y"/>
+            <ReturnValue>
+              <ReturnValueAttr/>
+              <ParametersAttributes/>
+            </ReturnValue>
+            <SqlWhereExist val="N"/>
+            <TaskType val="B"/>
+            <External val="N"/>
+            <FormType val="N"/>
+            <DotNetObjectExists val="N"/>
+          </Header>
+          <ItemIsn val="25"/>
+          <Resource>
+            <Columns>
+              <Column id="1345323009" name="q_PERIOD_TILL">
+                <PropertyList model="FIELD">
+                  <Model attr_obj="FIELD_DATE" id="1"/>
+                  <Range id="98"/>
+                  <Picture id="157" valUnicode="DD/MM/YYYY"/>
+                  <NullAllowed id="166" val="Y"/>
+                  <NullDefault id="169" val="Y"/>
+                  <CharSet id="172" val="1"/>
+                  <StoredAs id="173" val="19"/>
+                  <Size id="174" val="8"/>
+                  <Definition id="175" val="2"/>
+                  <DatabaseInformation id="177"/>
+                  <DbColumnName id="178" val="PERIOD_TILL"/>
+                  <Type id="179" val="DATE"/>
+                  <UserType id="180"/>
+                  <PartOfDatetime id="244"/>
+                  <DefaultStorage id="274"/>
+                  <Content id="434"/>
+                </PropertyList>
+              </Column>
+              <Column id="1345323011" name="v_PeriodEndDate">
+                <PropertyList model="FIELD">
+                  <Model attr_obj="FIELD_DATE" comp="2" id="1" obj="37"/>
+                  <StoredAs id="173" val="19"/>
+                  <Size id="174" val="8"/>
+                  <Definition id="175" val="2"/>
+                </PropertyList>
+              </Column>
+              <Column id="1345323015" name="v_NextPeriodStartDate">
+                <PropertyList model="FIELD">
+                  <Model attr_obj="FIELD_DATE" comp="2" id="1" obj="37"/>
+                  <StoredAs id="173" val="19"/>
+                  <Size id="174" val="8"/>
+                  <Definition id="175" val="2"/>
+                </PropertyList>
+              </Column>
+              <Column id="1345323014" name="v_NextPeriodEndDate">
+                <PropertyList model="FIELD">
+                  <Model attr_obj="FIELD_DATE" comp="2" id="1" obj="37"/>
+                  <StoredAs id="173" val="19"/>
+                  <Size id="174" val="8"/>
+                  <Definition id="175" val="2"/>
+                </PropertyList>
+              </Column>
+            </Columns>
+          </Resource>
+          <Information>
+            <Key>
+              <Mode val="N"/>
+            </Key>
+            <DB comp="-1"/>
+            <Sort>
+              <CLS val="A"/>
+            </Sort>
+            <ForceRecordDelete DEL="N"/>
+            <EndTaskCondition val="Y"/>
+            <EvaluateEndCondition val="A"/>
+            <InitialMode val="E"/>
+            <Locate Direction="A"/>
+            <Range Direction="A"/>
+            <VarRange/>
+            <TaskProperties>
+              <SelectionTable val="N"/>
+              <ConfirmUpdate CNFU="N"/>
+              <ConfirmCancel val="N"/>
+              <ErrorStrategy val="A"/>
+              <LockingStrategy val="M"/>
+              <CacheStrategy val="D"/>
+              <ForceRecordSuffix val="N"/>
+              <TransactionMode val="P"/>
+              <TransactionBegin val="N"/>
+              <PreloadView val="N"/>
+              <AllowEmptyDataview val="N"/>
+              <KeepCreatedContext val="N"/>
+            </TaskProperties>
+            <SIDE_WIN>
+              <AllowOptions val="N"/>
+              <AllowQuery val="Y"/>
+              <AllowModify val="N"/>
+              <AllowCreate val="N"/>
+              <AllowDelete val="N"/>
+              <AllowLocate val="Y"/>
+              <AllowRange val="Y"/>
+              <AllowIndexChange val="N"/>
+              <AllowSorting val="N"/>
+              <AllowIOFiles val="Y"/>
+              <RecordCycle val="Y"/>
+              <AllowEvents val="N"/>
+              <AllowIndexOptimization val="N"/>
+              <AllowLocationInQuery val="N"/>
+              <AllowPrintingData val="N"/>
+            </SIDE_WIN>
+            <WIN>
+              <OpenTaskWindow val="N"/>
+              <CloseTaskWindow val="Y"/>
+              <ForegroundWindow val="Y"/>
+              <FlipFld val="N"/>
+              <RefreshTaskWindow ReturnValue="N"/>
+            </WIN>
+            <BOX>
+              <Direction val="V"/>
+            </BOX>
+          </Information>
+          <SQL_FORM DB="ORACLE-SEP" RESTAB="Memory">
+            <SQL_STMT_U val="select max(period_till) from servicefee_hdr h&#xD;&#xA;inner join servicefee_calc_run r on h.sfcr_id=r.id&#xD;&#xA;where&#xD;&#xA;h.ppr_id=~1&#xD;&#xA;and h.charge_type= ~2 &#xD;&#xA;and ((~4=3 and r.calculation_variant=3) or&#xD;&#xA;&#x9; (~3=1 and ~4&lt;>3 and r.calculation_variant IN (1,4,5)) or&#xD;&#xA;&#x9; (~3=0 and r.calculation_variant=~4))&#xD;&#xA;and ((h.proces_state = 0 and h.record_state>=~6) or (h.record_state>=5 and h.proces_state = 9) or (~5 is not null and h.cfh_id=~5))"/>
+            <INARG>
+              <Arguments>
+                <Argument>
+                  <Exp val="1345323009"/>
+                </Argument>
+                <Argument>
+                  <Exp val="1345323010"/>
+                </Argument>
+                <Argument>
+                  <Exp val="2082471957"/>
+                </Argument>
+                <Argument>
+                  <Exp val="1345323012"/>
+                </Argument>
+                <Argument>
+                  <Exp val="1987051542"/>
+                </Argument>
+                <Argument>
+                  <Exp val="881852443"/>
+                </Argument>
+              </Arguments>
+            </INARG>
+            <OUTARG>
+              <Arguments>
+                <Argument Variable="1345323009"/>
+              </Arguments>
+            </OUTARG>
+          </SQL_FORM>
+          <INT_CMP_LIST_INFO>
+            <v>2</v>
+          </INT_CMP_LIST_INFO>
+          <TaskLogic>
+            <LogicUnit id="3" propagate="78">
+              <Level val="R"/>
+              <Type val="M"/>
+              <Scope val="S"/>
+              <EngineDirective val="S"/>
+              <ShowMessage val="Y"/>
+              <Condition val="89"/>
+              <Event>
+                <EventType val="S"/>
+              </Event>
+              <LogicLines>
+                <LogicLine>
+                  <DATAVIEW_SRC FlowIsn="1345323010" Type="Q">
+                    <Condition val="N"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </DATAVIEW_SRC>
+                </LogicLine>
+                <LogicLine>
+                  <Remark FlowIsn="1345323029">
+                    <Type val="0"/>
+                    <Text val="Query determines the last calculated or processed period"/>
+                  </Remark>
+                </LogicLine>
+                <LogicLine>
+                  <Remark FlowIsn="1987051605">
+                    <Type val="0"/>
+                    <Text val="Always include the triggering calculated fee header, regardless of  the process status."/>
+                  </Remark>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="1345323009" FlowIsn="1345323009" id="1345323009">
+                    <Column val="1345323009"/>
+                    <Type val="V"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <Condition val="Y"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Remark FlowIsn="1345323048">
+                    <Type val="0"/>
+                    <Text val=" "/>
+                  </Remark>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="1345323012" FlowIsn="1345323049" id="1345323012">
+                    <Column val="1345323011"/>
+                    <Type val="V"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <PartOfDataview val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="1345323016" FlowIsn="1345323074" id="1345323016">
+                    <Column val="1345323015"/>
+                    <Type val="V"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <PartOfDataview val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+                <LogicLine>
+                  <Select FieldID="1345323015" FlowIsn="1345323070" id="1345323015">
+                    <Column val="1345323014"/>
+                    <Type val="V"/>
+                    <ExposedToRoute val="N"/>
+                    <IsParameter val="N"/>
+                    <DIFF_UPDATE val="T"/>
+                    <PartOfDataview val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="S"/>
+                    <Direction val="C"/>
+                  </Select>
+                </LogicLine>
+              </LogicLines>
+            </LogicUnit>
+            <LogicUnit id="4" propagate="78">
+              <Level val="R"/>
+              <Type val="S"/>
+              <Scope val="S"/>
+              <EngineDirective val="S"/>
+              <ShowMessage val="Y"/>
+              <Condition val="89"/>
+              <Event>
+                <EventType val="S"/>
+              </Event>
+              <LogicLines>
+                <LogicLine>
+                  <Remark FlowIsn="1345323026">
+                    <Type val="2"/>
+                    <Text val="No Calculated or Processed periods found, then the feeChargeStartDate else last calculation period plus one day :"/>
+                  </Remark>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1345323042">
+                    <Parent val="1"/>
+                    <FieldID val="1345323013"/>
+                    <WithValue val="1345323018"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <BLOCK EndBlock="1886388312" EndBlockSegment="1886388312" FlowIsn="1886388309" Type="I">
+                    <Condition Exp="1886388246"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </BLOCK>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1886388313">
+                    <Parent val="1"/>
+                    <FieldID val="1345323013"/>
+                    <WithValue val="1886388247"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition Exp="1886388248"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1886388314">
+                    <Parent val="1"/>
+                    <FieldID val="1345323013"/>
+                    <WithValue val="1886388249"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition Exp="1886388250"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <BLOCK EndBlock="579862644" EndBlockSegment="579862644" FlowIsn="579862643" Type="I">
+                    <Condition Exp="579862556"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </BLOCK>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="579862642">
+                    <Parent val="1"/>
+                    <FieldID val="1345323013"/>
+                    <WithValue val="579862557"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Evaluate FlowIsn="579862645">
+                    <Expression val="579862558"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Evaluate>
+                </LogicLine>
+                <LogicLine>
+                  <END_BLK FlowIsn="579862644"/>
+                </LogicLine>
+                <LogicLine>
+                  <END_BLK FlowIsn="1886388312"/>
+                </LogicLine>
+                <LogicLine>
+                  <Remark FlowIsn="1886388310">
+                    <Type val="2"/>
+                    <Text val=" "/>
+                  </Remark>
+                </LogicLine>
+                <LogicLine>
+                  <Remark FlowIsn="1886388311">
+                    <Type val="2"/>
+                    <Text val=" "/>
+                  </Remark>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1345323016">
+                    <FieldID val="1345323012"/>
+                    <WithValue val="1345323017"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1345323050">
+                    <Parent val="1"/>
+                    <FieldID val="1345323014"/>
+                    <WithValue val="1345323020"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition Exp="1345323023"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Remark FlowIsn="1345323043">
+                    <Type val="2"/>
+                    <Text val="Period found:"/>
+                  </Remark>
+                </LogicLine>
+                <LogicLine>
+                  <BLOCK EndBlock="1345323045" EndBlockSegment="1345323045" FlowIsn="1345323044" Type="I">
+                    <Condition Exp="1345323019"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </BLOCK>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1345323024">
+                    <Parent val="1"/>
+                    <FieldID val="1345323012"/>
+                    <WithValue val="1345323015"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1345323051">
+                    <Parent val="1"/>
+                    <FieldID val="1345323017"/>
+                    <WithValue val="1345323021"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Remark FlowIsn="1345323062">
+                    <Type val="2"/>
+                    <Text val="Check if the next period is present and ready to be calculated:"/>
+                  </Remark>
+                </LogicLine>
+                <LogicLine>
+                  <BLOCK EndBlock="1345323073" EndBlockSegment="1345323073" FlowIsn="1345323072" Type="I">
+                    <Condition Exp="1345323025"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </BLOCK>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1345323075">
+                    <FieldID val="1345323016"/>
+                    <WithValue val="1345323026"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1345323071">
+                    <FieldID val="1345323015"/>
+                    <WithValue val="1345323027"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1345323063">
+                    <Parent val="1"/>
+                    <FieldID val="1345323026"/>
+                    <WithValue val="1345323028"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <END_BLK FlowIsn="1345323073"/>
+                </LogicLine>
+                <LogicLine>
+                  <Remark FlowIsn="1345323046">
+                    <Type val="2"/>
+                    <Text val="Check if it's the last period of the charge period:"/>
+                  </Remark>
+                </LogicLine>
+                <LogicLine>
+                  <Update FlowIsn="1345323047">
+                    <Parent val="1"/>
+                    <FieldID val="1345323018"/>
+                    <WithValue val="1345323022"/>
+                    <Incremental val="N"/>
+                    <ForcedUpdate val="Y"/>
+                    <Condition val="Y"/>
+                    <Modifier val="B"/>
+                    <Direction val="C"/>
+                  </Update>
+                </LogicLine>
+                <LogicLine>
+                  <END_BLK FlowIsn="1345323045"/>
+                </LogicLine>
+              </LogicLines>
+            </LogicUnit>
+          </TaskLogic>
+          <TaskForms>
+            <FormEntry _last_isn="3" _last_test_id="3" id="1345323010">
+              <PropertyList model="FORM_GUI0">
+                <Width id="23" val="123"/>
+                <Height id="24" val="195"/>
+                <_Comment id="218"/>
+                <FormName id="311" valUnicode="GetNewCalculationPeriod"/>
+              </PropertyList>
+            </FormEntry>
+          </TaskForms>
+          <Expressions>
+            <Expression id="1345323009">
+              <ExpSyntax val="{1,1345323009}"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+            <Expression id="1345323010">
+              <ExpSyntax val="{1,1345323010}"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+            <Expression id="2082471957">
+              <ExpSyntax val="{1,2082471955}"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="1345323012">
+              <ExpSyntax val="{1,1345323023}"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+            <Expression id="1987051542">
+              <ExpSyntax val="{1,1987051540}"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+            <Expression id="881852443">
+              <ExpSyntax val="{1,881852438}"/>
+              <ExpAttribute val="N"/>
+            </Expression>
+            <Expression id="1345323018">
+              <ExpSyntax val="IF(ISNULL({0,1345323009}),{1,1345323021},MAX(AddDate({0,1345323009},0,0,1),{1,1345323021}))"/>
+              <ExpAttribute val="D"/>
+            </Expression>
+            <Expression id="1886388246">
+              <ExpSyntax val="{1,2082471955}"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="1886388247">
+              <ExpSyntax val="BOM({1,1345323013})"/>
+              <ExpAttribute val="D"/>
+            </Expression>
+            <Expression id="1886388248">
+              <ExpSyntax val="{1,1345323015}='M'"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="1886388249">
+              <ExpSyntax val="DVal(IF(Range(Month({1,1345323013}),1,3),'01/01',IF(Range(Month({1,1345323013}),4,6),'01/04',IF(Range(Month({1,1345323013}),7,9),'01/07','01/10')))&amp;'/'&amp;Str(Year({1,1345323013}),'4'),'DD/MM/YYYY')"/>
+              <ExpAttribute val="D"/>
+            </Expression>
+            <Expression id="1886388250">
+              <ExpSyntax val="{1,1345323015}='K'"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="1345323017">
+              <ExpSyntax val="CASE({1,1345323015},&#xD;&#xA;'J',EOY({1,1345323013}),&#xD;&#xA;'M',EOM({1,1345323013}),&#xD;&#xA;CASE(Month({1,1345323013}) MOD 3,&#xD;&#xA;1, EOM(AddDate(BOM({1,1345323013}),0,2,0)),&#xD;&#xA;2, EOM(AddDate(BOM({1,1345323013}),0,1,0)), EOM({1,1345323013})))"/>
+              <ExpAttribute val="D"/>
+            </Expression>
+            <Expression id="1345323020">
+              <ExpSyntax val="MIN({0,1345323012},{1,1345323025})"/>
+              <ExpAttribute val="D"/>
+            </Expression>
+            <Expression id="1345323023">
+              <ExpSyntax val="{1,1345323024} OR {0,1345323012}&lt;={1,1345323025}"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="1345323019">
+              <ExpSyntax val="NOT ISNULL({1,1345323014})"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="1345323015">
+              <ExpSyntax val="'TRUE'LOG"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="1345323021">
+              <ExpSyntax val="{1,1345323014}&lt;>{0,1345323012}"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="1345323025">
+              <ExpSyntax val="{1,1345323025}>{1,1345323014}"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="1345323026">
+              <ExpSyntax val="AddDate({1,1345323014},0,0,1)"/>
+              <ExpAttribute val="D"/>
+            </Expression>
+            <Expression id="1345323027">
+              <ExpSyntax val="CASE({1,1345323015},&#xD;&#xA;'J',EOY({0,1345323016}),&#xD;&#xA;'M',EOM({0,1345323016}),&#xD;&#xA;CASE(Month({0,1345323016}) MOD 3,&#xD;&#xA;1, EOM(AddDate(BOM({0,1345323016}),0,2,0)),&#xD;&#xA;2, EOM(AddDate(BOM({0,1345323016}),0,1,0)), EOM({0,1345323016})))"/>
+              <ExpAttribute val="D"/>
+            </Expression>
+            <Expression id="1345323028">
+              <ExpSyntax val="{1,1345323025}>{0,1345323015} OR {1,1345323024}"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="1345323022">
+              <ExpSyntax val="{0,1345323012}=CASE({1,1345323016},&#xD;&#xA;'J',EOY({1,1345323013}),&#xD;&#xA;'M',EOM({1,1345323013}),&#xD;&#xA;CASE(Month({1,1345323013}) MOD 3,&#xD;&#xA;1, EOM(AddDate(BOM({1,1345323013}),0,2,0)),&#xD;&#xA;2, EOM(AddDate(BOM({1,1345323013}),0,1,0)), EOM({1,1345323013})))&#xD;&#xA;OR ({1,1345323024} AND NOT {1,1345323026})"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="579862556">
+              <ExpSyntax val="AddDate({1,1345323013},0,{32768,42991970},0) &lt; Date()"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+            <Expression id="579862557">
+              <ExpSyntax val="AddDate(Date(),0,-{32768,42991970},0)"/>
+              <ExpAttribute val="D"/>
+            </Expression>
+            <Expression id="579862558">
+              <ExpSyntax val="FlwMtr('Start period maximized due to setting. New startdate period : ' &amp; DStr({1,1345323013},'DD-MM-YYYY'),'FALSE'LOG)"/>
+              <ExpAttribute val="B"/>
+            </Expression>
+          </Expressions>
+        </Task>
+      </Task>
+    </Programs>
+  </ProgramsRepository>
+
+</Application>

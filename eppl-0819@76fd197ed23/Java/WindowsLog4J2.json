@@ -1,0 +1,59 @@
+{
+	"configuration": {
+		"name": "Default",
+		"appenders": {
+			"RollingFile": {
+				"name": "File",
+				"fileName": "${sys:logfilename}.log",
+				"filePattern": "${sys:logfilename}.%i.log.gz",
+				"PatternLayout": {
+					"pattern": "[%p] %c{1} %d{dd/MM/yyyy HH:mm:ss,SSS 'UTC'}{GMT} %X %m%n"
+				},
+				"Policies": {
+					"SizeBasedTriggeringPolicy": {
+						"size": "14 MB"
+					}
+				},
+				"DefaultRolloverStrategy": {
+					"max": "2"
+				}
+			}
+		},
+		"loggers": {
+			"logger": [
+				{
+					"name": "org.dozer",
+					"level": "warn"
+				},
+				{
+					"name": "org.jacorb",
+					"level": "info"
+				},
+				{
+					"name": "org.jacorb.giop",
+					"level": "info"
+				},
+				{
+					"name": "org.jacorb.delegate",
+					"level": "warn"
+				},
+				{
+					"name": "org.jacorb.singleton",
+					"level": "warn"
+				},
+				{
+					"name": "nl.syntel",
+					"level": "warn"
+				}
+			],
+			"root": {
+				"level": "0",
+				"appender-ref": [
+					{
+						"ref": "File"
+					}
+				]
+			}
+		}
+	}
+}

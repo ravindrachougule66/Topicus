@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Application>
+
+  <Header>
+    <Version val="14091.00"/>
+    <WithIsn val="Y"/>
+    <_InternalTask val="N"/>
+    <IsRoot val="N"/>
+    <InIndex val="N"/>
+    <UniqueISNConvState val="12"/>
+  </Header>
+
+  <ProgramsRepository>
+    <Programs>
+      <Task MainProgram="N">
+        <Header Description="FUNC_InstrumentSettlementPartiesExist?" ISN_2="1" LastIsn="1" id="1690304806">
+          <LastModified _date="738742" _time="48894" date="10/08/2023" time="13:34:54"/>
+          <Comment val="/* Function to determine if settlementparties exist for the selected instrument/Place of Settlement (BIC)  */"/>
+          <ExecutionRight comp="-1"/>
+          <Resident val="N"/>
+          <SQL val="Y"/>
+          <ReturnValue>
+            <ReturnValueAttr MgAttr="B"/>
+            <TSK_PARAMS val="2"/>
+            <ParametersAttributes>
+              <Attr MgAttr="N"/>
+              <Attr MgAttr="A"/>
+            </ParametersAttributes>
+          </ReturnValue>
+          <SqlWhereExist val="N"/>
+          <TaskType val="B"/>
+          <External val="N"/>
+          <Offline val="N"/>
+          <FormType val="N"/>
+          <DotNetObjectExists val="N"/>
+        </Header>
+        <ReturnValueExpression val="1690304516"/>
+        <ItemIsn val="7"/>
+        <Resource>
+          <Columns>
+            <Column id="1690304513" name="pi-_InstrumentId">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" comp="3" id="1" obj="2540"/>
+                <StoredAs id="173" val="6"/>
+                <Size id="174" val="8"/>
+                <Definition id="175" val="2"/>
+              </PropertyList>
+            </Column>
+            <Column id="1690304518" name="pi-_PlaceOfSettlementBIC">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" comp="3" id="1" obj="107"/>
+                <NullAllowed id="166" val="Y"/>
+                <NullDefault id="169" val="Y"/>
+                <StoredAs id="173" val="3"/>
+                <Definition id="175" val="2"/>
+              </PropertyList>
+            </Column>
+            <Column id="1690304517" name="q_ISP_ID">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_NUMERIC" id="1"/>
+                <Picture id="157" valUnicode="9"/>
+                <StoredAs id="173" val="4"/>
+                <Size id="174" val="4"/>
+                <Definition id="175" val="2"/>
+                <_Dec id="181"/>
+                <_Whole id="182" val="9"/>
+                <_Negative id="192"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="1690304514" name="v_InstrumentSettlPartiesExist?">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_LOGICAL" id="1"/>
+                <StoredAs id="173" val="15"/>
+                <Size id="174" val="1"/>
+                <Definition id="175" val="2"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+          </Columns>
+        </Resource>
+        <Information>
+          <Key>
+            <Mode val="N"/>
+          </Key>
+          <DB comp="-1"/>
+          <Sort>
+            <CLS val="A"/>
+          </Sort>
+          <ForceRecordDelete DEL="N"/>
+          <EndTaskCondition val="Y"/>
+          <EvaluateEndCondition val="A"/>
+          <InitialMode val="E"/>
+          <Locate Direction="A"/>
+          <Range Direction="A"/>
+          <VarRange/>
+          <TaskProperties>
+            <SelectionTable val="N"/>
+            <ConfirmUpdate CNFU="N"/>
+            <ConfirmCancel val="N"/>
+            <ErrorStrategy val="A"/>
+            <LockingStrategy val="M"/>
+            <CacheStrategy val="T"/>
+            <ForceRecordSuffix val="N"/>
+            <TransactionMode val="P"/>
+            <TransactionBegin val="N"/>
+            <PreloadView val="N"/>
+            <AllowEmptyDataview val="N"/>
+            <KeepCreatedContext val="N"/>
+          </TaskProperties>
+          <SIDE_WIN>
+            <AllowOptions val="N"/>
+            <AllowQuery val="Y"/>
+            <AllowModify val="N"/>
+            <AllowCreate val="N"/>
+            <AllowDelete val="N"/>
+            <AllowLocate val="Y"/>
+            <AllowRange val="Y"/>
+            <AllowIndexChange val="N"/>
+            <AllowSorting val="Y"/>
+            <AllowIOFiles val="Y"/>
+            <RecordCycle val="Y"/>
+            <AllowEvents val="N"/>
+            <AllowIndexOptimization val="Y"/>
+            <AllowLocationInQuery val="Y"/>
+            <AllowPrintingData val="N"/>
+          </SIDE_WIN>
+          <WIN>
+            <OpenTaskWindow val="N"/>
+            <CloseTaskWindow val="Y"/>
+            <ForegroundWindow val="Y"/>
+            <FlipFld val="N"/>
+            <RefreshTaskWindow ReturnValue="N"/>
+          </WIN>
+          <BOX>
+            <Direction val="V"/>
+          </BOX>
+        </Information>
+        <SQL_FORM DB="ORACLE-SEP" RESTAB="Memory">
+          <SQL_STMT_U val="select p.ipsp_id &#xD;&#xA;from instrument_settlement_places s&#xD;&#xA;inner join instrument_plos_settl_parties p&#xD;&#xA;on p.ipsp_isp_id = s.isp_id&#xD;&#xA;where s.isp_instrument_id = ~1&#xD;&#xA;and ((~2 is not null and ~2 &lt;> ' ') and s.isp_place_of_settlement_bic = ~2 or (~2 is null or ~2 = ' '))&#xD;&#xA;and &#xD;&#xA;(p.ipsp_country is not null&#xD;&#xA;or p.ipsp_bic_code is not null&#xD;&#xA;or p.ipsp_issuer_code is not null&#xD;&#xA;or p.ipsp_proprietary_code is not null&#xD;&#xA;or p.ipsp_name_address_1 is not null&#xD;&#xA;or p.ipsp_name_address_2 is not null&#xD;&#xA;or p.ipsp_name_address_3 is not null&#xD;&#xA;or p.ipsp_name_address_4 is not null&#xD;&#xA;or p.ipsp_sk_issuer_code is not null&#xD;&#xA;or p.ipsp_sk_type is not null&#xD;&#xA;or p.ipsp_sk_account is not null)&#xD;&#xA;and&#xD;&#xA;(p.ipsp_country &lt;> ' '&#xD;&#xA;or p.ipsp_bic_code &lt;> ' '&#xD;&#xA;or p.ipsp_issuer_code &lt;> ' '&#xD;&#xA;or p.ipsp_proprietary_code &lt;> ' '&#xD;&#xA;or p.ipsp_name_address_1 &lt;> ' '&#xD;&#xA;or p.ipsp_name_address_2 &lt;> ' '&#xD;&#xA;or p.ipsp_name_address_3 &lt;> ' '&#xD;&#xA;or p.ipsp_name_address_4 &lt;> ' '&#xD;&#xA;or p.ipsp_sk_issuer_code &lt;> ' '&#xD;&#xA;or p.ipsp_sk_type &lt;> ' '&#xD;&#xA;or p.ipsp_sk_account &lt;> ' ')&#xD;&#xA;and rownum &lt;= 1"/>
+          <INARG>
+            <Arguments>
+              <Argument>
+                <Exp val="1690304513"/>
+              </Argument>
+              <Argument>
+                <Exp val="1690304517"/>
+              </Argument>
+            </Arguments>
+          </INARG>
+          <OUTARG>
+            <Arguments>
+              <Argument Variable="1690304517"/>
+            </Arguments>
+          </OUTARG>
+        </SQL_FORM>
+        <INT_CMP_LIST_INFO>
+          <v>3</v>
+        </INT_CMP_LIST_INFO>
+        <TaskLogic>
+          <LogicUnit id="1690304513" propagate="78">
+            <Level val="R"/>
+            <Type val="M"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <DATAVIEW_SRC FlowIsn="1690304513" Type="Q">
+                  <Condition val="N"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </DATAVIEW_SRC>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1690304513" FlowIsn="1690304515" id="1690304513">
+                  <Column val="1690304513"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1690304519" FlowIsn="1690304527" id="1690304519">
+                  <Column val="1690304518"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <PartOfDataview val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="1690304518">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1690304517" FlowIsn="1690304517" id="1690304517">
+                  <Column val="1690304517"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="1690304523">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="1690304534">
+                  <Type val="0"/>
+                  <Text val="Bepaal of voor de combinatie van fonds en Place of Settlement BIC code minstens één settlementparty gevonden wordt"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="1690304535">
+                  <Type val="0"/>
+                  <Text val="(waarvoor de relevante velden ook daadwerkelijk een waarde bevatten)."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="1690304542">
+                  <Type val="0"/>
+                  <Text val="Let op: Place of Settlement is optioneel. Als deze niet meegestuurd wordt, dan wordt alleen op het fonds gezocht."/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="1690304538">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1690304514" FlowIsn="1690304516" id="1690304514">
+                  <Column val="1690304514"/>
+                  <Type val="V"/>
+                  <ExposedToRoute val="N"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="1690304516" propagate="78">
+            <Level val="T"/>
+            <Type val="P"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <Update FlowIsn="1690304520">
+                  <FieldID val="1690304514"/>
+                  <WithValue val="1690304515"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="1690304515" propagate="78">
+            <Level val="R"/>
+            <Type val="S"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+            </Event>
+            <LogicLines>
+              <LogicLine>
+                <Update FlowIsn="1690304519">
+                  <FieldID val="1690304514"/>
+                  <WithValue val="1690304514"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+        </TaskLogic>
+        <TaskForms>
+          <FormEntry id="1">
+            <PropertyList model="FORM_GUI0">
+              <_Comment id="218"/>
+              <FormName id="311" valUnicode="FUNC_InstrumentSettlementPartiesExist?"/>
+            </PropertyList>
+          </FormEntry>
+        </TaskForms>
+        <Expressions>
+          <Expression id="1690304516">
+            <ExpSyntax val="{0,1690304514}"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="1690304515">
+            <ExpSyntax val="'FALSE'LOG"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+          <Expression id="1690304513">
+            <ExpSyntax val="{0,1690304513}"/>
+            <ExpAttribute val="N"/>
+          </Expression>
+          <Expression id="1690304517">
+            <ExpSyntax val="{0,1690304519}"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="1690304514">
+            <ExpSyntax val="{0,1690304517}&lt;>0"/>
+            <ExpAttribute val="B"/>
+          </Expression>
+        </Expressions>
+      </Task>
+    </Programs>
+  </ProgramsRepository>
+
+</Application>

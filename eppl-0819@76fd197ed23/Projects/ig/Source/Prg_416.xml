@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Application>
+
+  <Header>
+    <Version val="13021"/>
+    <WithIsn val="Y"/>
+    <_InternalTask val="N"/>
+    <IsRoot val="N"/>
+    <InIndex val="N"/>
+    <UniqueISNConvState val="12"/>
+  </Header>
+
+  <ProgramsRepository>
+    <Programs>
+      <Task MainProgram="N">
+        <Header Description="SUB-ISOdatetime" ISN_2="1" LastIsn="1" id="416">
+          <Comment val="/*&#xA;Deze functie formatteert een datum/tijd met tjdzone volgens ISO-8601&#xA;voorbeeld : &quot;2013-03-14T10:47:12+01:00&quot;&#xD;&#xA;&#xD;&#xA;Als er geen datum meegegeven wordt, wordt de systeemtijd van de database opgehaald.&#xD;.&#xA;*/"/>
+          <ExecutionRight comp="-1"/>
+          <Resident val="Y"/>
+          <SQL val="Y"/>
+          <ReturnValue>
+            <ReturnValueAttr/>
+            <TSK_PARAMS val="3"/>
+            <ParametersAttributes>
+              <Attr MgAttr="D"/>
+              <Attr MgAttr="T"/>
+              <Attr MgAttr="A"/>
+            </ParametersAttributes>
+          </ReturnValue>
+          <SqlWhereExist val="N"/>
+          <TaskType val="B"/>
+          <External val="N"/>
+          <Offline val="N"/>
+          <FormType val="N"/>
+          <DotNetObjectExists val="N"/>
+          <LastModified _date="736763" _time="43200" date="10/03/2018" time="12:00:00"/>
+        </Header>
+        <ItemIsn val="4"/>
+        <Resource>
+          <Columns>
+            <Column id="1" name="pi-_Date">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_DATE" id="1"/>
+                <Picture id="157" valUnicode="DD/MM/YYYYZ"/>
+                <StoredAs id="173" val="19"/>
+                <Size id="174" val="8"/>
+                <Definition id="175" val="2"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="2" name="pi-_Time">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_TIME" id="1"/>
+                <StoredAs id="173" val="23"/>
+                <Size id="174" val="4"/>
+                <Definition id="175" val="2"/>
+                <_FieldStyle id="276" val="1"/>
+              </PropertyList>
+            </Column>
+            <Column id="3" name="p-o_ISODATETIME">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" id="1"/>
+                <Picture id="157" valUnicode="25"/>
+                <StoredAs id="173" val="1"/>
+                <Size id="174" val="25"/>
+                <Definition id="175" val="2"/>
+                <_Flip id="194"/>
+              </PropertyList>
+            </Column>
+            <Column id="4" name="v_ISODATETIME">
+              <PropertyList model="FIELD">
+                <Model attr_obj="FIELD_ALPHA" id="1"/>
+                <Range id="98"/>
+                <Picture id="157" valUnicode="25"/>
+                <NullValue id="167"/>
+                <NullDisplay id="168"/>
+                <NullDefault id="169"/>
+                <StoredAs id="173" val="3"/>
+                <Size id="174" val="25"/>
+                <Definition id="175" val="2"/>
+                <DatabaseInformation id="177"/>
+                <DbColumnName id="178" val="ISODT"/>
+                <Type id="179" val="VARCHAR2(25)"/>
+                <UserType id="180"/>
+                <_Flip id="194"/>
+                <PartOfDatetime id="244"/>
+              </PropertyList>
+            </Column>
+          </Columns>
+        </Resource>
+        <Information>
+          <Key>
+            <Mode val="N"/>
+          </Key>
+          <DB comp="-1"/>
+          <Sort>
+            <CLS val="A"/>
+          </Sort>
+          <ForceRecordDelete DEL="N"/>
+          <EndTaskCondition val="Y"/>
+          <EvaluateEndCondition val="A"/>
+          <InitialMode val="M"/>
+          <Locate Direction="A"/>
+          <Range Direction="A"/>
+          <VarRange/>
+          <TaskProperties>
+            <SelectionTable val="N"/>
+            <ConfirmUpdate CNFU="N"/>
+            <ConfirmCancel val="N"/>
+            <ErrorStrategy val="A"/>
+            <LockingStrategy val="M"/>
+            <CacheStrategy val="D"/>
+            <ForceRecordSuffix val="N"/>
+            <TransactionMode val="P"/>
+            <TransactionBegin val="N"/>
+            <PreloadView val="N"/>
+            <AllowEmptyDataview val="N"/>
+            <KeepCreatedContext val="N"/>
+          </TaskProperties>
+          <SIDE_WIN>
+            <AllowOptions val="N"/>
+            <AllowQuery val="Y"/>
+            <AllowModify val="Y"/>
+            <AllowCreate val="N"/>
+            <AllowDelete val="N"/>
+            <AllowLocate val="Y"/>
+            <AllowRange val="Y"/>
+            <AllowIndexChange val="N"/>
+            <AllowSorting val="N"/>
+            <AllowIOFiles val="Y"/>
+            <RecordCycle val="Y"/>
+            <AllowEvents val="N"/>
+            <AllowIndexOptimization val="N"/>
+            <AllowLocationInQuery val="N"/>
+            <AllowPrintingData val="N"/>
+          </SIDE_WIN>
+          <WIN>
+            <OpenTaskWindow val="N"/>
+            <CloseTaskWindow val="Y"/>
+            <ForegroundWindow val="Y"/>
+            <FlipFld val="N"/>
+            <RefreshTaskWindow ReturnValue="N"/>
+          </WIN>
+          <BOX>
+            <Direction val="V"/>
+          </BOX>
+        </Information>
+        <SQL_FORM DB="ORACLE-SEP" RESTAB="Memory">
+          <SQL_STMT_U val="select to_char(decode(':1',&#xA;                      '0000-00-00',&#xA;                      systimestamp,&#xA;                      to_timestamp_tz(':1 :2',&#xA;                                      'YYYY-MM-DD hh24:mi:sstzh:tzm')),&#xA;               'YYYY-MM-DD&quot;T&quot;hh24:mi:sstzh:tzm') isodt &#xA;from dual"/>
+          <INARG>
+            <Arguments>
+              <Argument>
+                <Exp val="2"/>
+              </Argument>
+              <Argument>
+                <Exp val="3"/>
+              </Argument>
+            </Arguments>
+          </INARG>
+          <OUTARG>
+            <Arguments>
+              <Argument Variable="4"/>
+            </Arguments>
+          </OUTARG>
+        </SQL_FORM>
+        <TaskLogic>
+          <LogicUnit id="2" propagate="78">
+            <Level val="R"/>
+            <Type val="M"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+              <PublicObject comp="-1"/>
+            </Event>
+            <Expanded val="1"/>
+            <LogicLines>
+              <LogicLine>
+                <DATAVIEW_SRC FlowIsn="2" Type="Q">
+                  <Condition val="N"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </DATAVIEW_SRC>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="3">
+                  <Type val="0"/>
+                  <Text val="Direct SQL"/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="1" FlowIsn="4" id="1">
+                  <Column val="1"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="2" FlowIsn="5" id="2">
+                  <Column val="2"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="3" FlowIsn="6" id="3">
+                  <Column val="3"/>
+                  <Type val="V"/>
+                  <IsParameter val="Y"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+              <LogicLine>
+                <Remark FlowIsn="7">
+                  <Type val="0"/>
+                  <Text val=" "/>
+                </Remark>
+              </LogicLine>
+              <LogicLine>
+                <Select FieldID="4" FlowIsn="8" id="4">
+                  <Column val="4"/>
+                  <Type val="V"/>
+                  <IsParameter val="N"/>
+                  <DIFF_UPDATE val="T"/>
+                  <Condition val="Y"/>
+                  <Modifier val="S"/>
+                  <Direction val="C"/>
+                </Select>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+          <LogicUnit id="3" propagate="78">
+            <Level val="R"/>
+            <Type val="S"/>
+            <Scope val="S"/>
+            <EngineDirective val="S"/>
+            <ShowMessage val="Y"/>
+            <Condition val="89"/>
+            <Event>
+              <EventType val="S"/>
+              <PublicObject comp="-1"/>
+            </Event>
+            <Expanded val="1"/>
+            <LogicLines>
+              <LogicLine>
+                <Update FlowIsn="9">
+                  <FieldID val="3"/>
+                  <WithValue val="1"/>
+                  <Incremental val="N"/>
+                  <ForcedUpdate val="Y"/>
+                  <Condition val="Y"/>
+                  <Modifier val="B"/>
+                  <Direction val="C"/>
+                </Update>
+              </LogicLine>
+            </LogicLines>
+          </LogicUnit>
+        </TaskLogic>
+        <TaskForms>
+          <FormEntry _last_test_id="3" id="2">
+            <PropertyList model="FORM_GUI0">
+              <Width id="23" val="186"/>
+              <Height id="24" val="195"/>
+              <_Comment id="218"/>
+              <FormName id="311" valUnicode="SUB-ISOdatetime"/>
+              <_TabbingOrder id="318" val="1"/>
+              <WindowType id="358" val="1"/>
+              <PersistentFormState id="493"/>
+            </PropertyList>
+          </FormEntry>
+        </TaskForms>
+        <Expressions>
+          <Expression id="1">
+            <ExpSyntax val="{0,4}"/>
+            <ExpAttribute val="A"/>
+          </Expression>
+          <Expression id="2">
+            <ExpSyntax val="DStr ({0,1},'YYYY-MM-DD')"/>
+            <ExpAttribute val="U"/>
+          </Expression>
+          <Expression id="3">
+            <ExpSyntax val="TStr ({0,2},'HH:MM:SS')"/>
+            <ExpAttribute val="U"/>
+          </Expression>
+        </Expressions>
+      </Task>
+    </Programs>
+  </ProgramsRepository>
+
+</Application>
